@@ -6,544 +6,505 @@
 <title>Krthin Kothinti</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --navy:#0D1B2A;--navy-mid:#1A2E42;--aqua:#00C2A8;--aqua-dim:#00A08A;
-  --aqua-bg:rgba(0,194,168,0.08);--cream:#F5F2ED;--muted:#8BA3BC;
-  --card:#152030;--border:rgba(255,255,255,0.07);
-  --r-sm:6px;--r-md:12px;
-  /* typography */
-  --font-sans:'DM Sans',system-ui,sans-serif;
-  --font-mono:'JetBrains Mono',ui-monospace,monospace;
-  /* WCAG AA-compliant muted tones (all 4.5:1+ on dark cards) */
-  --muted-aa:#8BA3BC;        /* 6.68:1 on navy — already passes */
-  --muted-dim:#6c82a0;       /* 4.53:1 on #0c1829 bento cards */
-  --muted-stat:#6b7c94;      /* 4.54:1 on #070e1a dark bento */
-  --muted-tag:#6183a9;       /* 4.52:1 on #0c1829 — replaces #3d526a */
-}
-html{scroll-behavior:smooth}
-body{font-family:var(--font-sans);background:var(--navy);color:var(--cream);min-height:100vh;line-height:1.6;-webkit-font-smoothing:antialiased}
+  /* Core palette */
+  --bg:       #f8f7ff;
+  --surface:  #ffffff;
+  --surface2: #f0f4f8;
+  --border:   rgba(13,26,45,0.12);
+  --text:     #0d1a2d;
+  --text-2:   #364a5e;
+  --text-3:   #6b7f94;
 
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 40px;display:flex;align-items:center;justify-content:space-between;background:rgba(13,27,42,0.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
-.logo{font-family:var(--font-sans);font-weight:700;font-size:17px;color:var(--aqua);letter-spacing:-0.02em}
-.logo span{color:var(--cream)}
-.toggle{display:flex;background:var(--navy-mid);border-radius:40px;padding:4px;gap:2px;border:1px solid var(--border)}
-.tbtn{font-family:'Inter',sans-serif;font-size:13px;font-weight:500;padding:6px 18px;border-radius:40px;border:none;cursor:pointer;transition:all .2s;color:var(--muted);background:transparent}
-.tbtn.on{background:var(--aqua);color:var(--navy);font-weight:600}
-.tbtn:not(.on):hover{color:var(--cream)}
+  /* Accent colors — one per discipline */
+  --math:     #f59e0b;   /* amber/gold  */
+  --swim:     #06b6d4;   /* cyan        */
+  --martial:  #f43f5e;   /* coral/rose  */
+  --music:    #8b5cf6;   /* violet      */
+  --science:  #10b981;   /* emerald     */
+  --geo:      #3b82f6;   /* blue        */
+
+  /* Legacy compat for family/travel/culture pages */
+  --navy:     #0d1a2d;
+  --navy-mid: #102040;
+  --aqua:     #06b6d4;
+  --aqua-dim: #0891b2;
+  --aqua-bg:  rgba(6,182,212,0.10);
+  --cream:    #1a1033;
+  --muted:    #7c7a99;
+  --card:     #ffffff;
+  --muted-aa: #5a5780;
+
+  --font-sans:'Plus Jakarta Sans',system-ui,sans-serif;
+  --font-mono:'JetBrains Mono',ui-monospace,monospace;
+  --r-sm: 10px;
+  --r-md: 16px;
+}
+
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--font-sans);
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ── NAV ────────────────────────────────────────────────────── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:14px 40px;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(248,247,255,0.88);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--border);
+}
+.logo{
+  font-family:var(--font-sans);font-weight:800;font-size:17px;
+  color:var(--text);letter-spacing:-0.03em;
+}
+.logo span{color:var(--math);}
+.toggle{
+  display:flex;background:var(--surface2);
+  border-radius:40px;padding:4px;gap:2px;
+  border:1px solid var(--border);
+}
+.tbtn{
+  font-family:var(--font-sans);font-size:13px;font-weight:600;
+  padding:6px 18px;border-radius:40px;border:none;
+  cursor:pointer;transition:all .2s;
+  color:var(--text-2);background:transparent;
+}
+.tbtn.on{background:var(--text);color:var(--bg);font-weight:700;}
+.tbtn:not(.on):hover{color:var(--text);background:rgba(13,26,45,0.06);}
 
 .page{display:none;padding-top:80px}
 .page.on{display:block}
 
-/* ── PUBLIC ── */
-.hero{display:grid;grid-template-columns:1fr 1fr;min-height:calc(100vh - 80px);max-width:1200px;margin:0 auto;padding:60px 40px;gap:80px;align-items:center}
-.hleft{animation:up .7s ease both}
-@keyframes up{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
-.gtag{display:inline-block;font-size:12px;font-weight:500;color:var(--aqua);border:1px solid var(--aqua);border-radius:40px;padding:4px 14px;margin-bottom:20px;letter-spacing:.04em}
-.hname{font-family:var(--font-sans);font-size:clamp(50px,7vw,84px);font-weight:700;line-height:.95;letter-spacing:-.03em;color:var(--cream)}
-.hname em{font-style:normal;color:var(--aqua);display:block}
-.hsub{font-size:15px;color:var(--muted);margin-top:18px;max-width:380px;line-height:1.7}
-.hstats{display:flex;gap:28px;margin-top:40px;flex-wrap:wrap}
-.snum{font-family:var(--font-sans);font-size:26px;font-weight:700;color:var(--cream);line-height:1}
-.slbl{font-size:11px;color:var(--muted);margin-top:4px;font-weight:500}
-.sdiv{width:1px;background:var(--border);align-self:stretch}
+/* ── SECTIONS ────────────────────────────────────────────────── */
+.section{
+  max-width:1200px;margin:0 auto;
+  padding:72px 40px;
+  border-top:1px solid var(--border);
+}
+.s-eye{
+  display:inline-flex;align-items:center;
+  font-family:var(--font-mono);font-size:11px;font-weight:600;
+  color:var(--math);margin-bottom:14px;letter-spacing:.04em;
+  background:rgba(245,158,11,0.10);
+  border:1px solid rgba(245,158,11,0.25);
+  border-radius:40px;padding:3px 10px;
+}
+.s-title{
+  font-family:var(--font-sans);
+  font-size:clamp(24px,3.5vw,36px);font-weight:800;
+  color:var(--text);letter-spacing:-.03em;
+  margin-bottom:40px;line-height:1.1;
+}
 
-.pillars{display:flex;flex-direction:column;gap:13px;animation:up .7s .15s ease both}
-.pil{background:var(--card);border:1px solid var(--border);border-radius:var(--r-md);padding:18px 22px;display:flex;align-items:center;gap:16px;position:relative;overflow:hidden;transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease}
-.pil:hover{border-color:rgba(0,194,168,.45);transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,194,168,0.07)}
-.pil::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--aqua);opacity:.6}
-.pil-ic{font-size:26px;flex-shrink:0;width:44px;text-align:center}
-.pil-inf{flex:1}
-.pil-t{font-family:var(--font-sans);font-size:15px;font-weight:600;color:var(--cream)}
-.pil-d{font-size:12px;color:var(--muted);margin-top:2px}
-.badge{font-size:11px;font-weight:600;color:var(--aqua);background:var(--aqua-bg);border:1px solid rgba(0,194,168,.2);border-radius:40px;padding:3px 10px;white-space:nowrap}
+/* ── HERO / BENTO ────────────────────────────────────────────── */
+.bento-hero{
+  width:100%;max-width:1100px;margin:0 auto;
+  padding:56px 40px 36px;
+  display:flex;flex-direction:column;gap:14px;
+}
+.bento-outer{
+  display:grid;grid-template-columns:2fr 3fr;gap:14px;
+}
+/* Name card */
+.bento-name{
+  border-radius:24px;padding:32px 28px;
+  background:linear-gradient(135deg,#0d1a2d 0%,#102040 100%);
+  border:none;
+  display:flex;flex-direction:column;justify-content:space-between;
+  min-height:280px;
+  animation:bentoUp .6s ease both;
+  box-shadow:0 8px 32px rgba(26,16,51,0.18);
+}
+@keyframes bentoUp{
+  from{opacity:0;transform:translateY(16px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.bento-location{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:11px;font-weight:600;border-radius:40px;
+  padding:4px 12px;margin-bottom:20px;
+  color:#67e8f9;
+  background:rgba(6,182,212,0.15);
+  border:1px solid rgba(6,182,212,0.3);
+  width:fit-content;
+}
+.bento-name-first{
+  font-family:var(--font-sans);
+  font-size:clamp(2.2rem,4.5vw,3.6rem);
+  font-weight:800;letter-spacing:-.04em;line-height:.95;color:#ffffff;
+}
+.bento-name-last{
+  font-family:var(--font-sans);
+  font-size:clamp(2.2rem,4.5vw,3.6rem);
+  font-weight:800;letter-spacing:-.04em;line-height:.95;
+  color:#f59e0b;margin-bottom:18px;
+}
+.bento-bio{font-size:13px;line-height:1.7;color:#93c5fd;max-width:260px;}
+.bento-footer{
+  display:flex;align-items:center;gap:8px;
+  margin-top:24px;font-size:11px;color:rgba(255,255,255,0.3);
+}
+.bento-footer-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:#f59e0b;opacity:.7;flex-shrink:0;
+}
 
-.section{max-width:1200px;margin:0 auto;padding:80px 40px;border-top:1px solid var(--border)}
-.s-eye{display:inline-flex;align-items:center;font-family:var(--font-mono);font-size:11px;font-weight:600;color:var(--aqua);margin-bottom:14px;letter-spacing:.04em;background:rgba(0,194,168,0.07);border:1px solid rgba(0,194,168,0.2);border-radius:40px;padding:3px 10px;}
-.s-title{font-family:var(--font-sans);font-size:clamp(26px,4vw,38px);font-weight:700;color:var(--cream);letter-spacing:-.02em;margin-bottom:48px;line-height:1.1}
+/* Metric grid */
+.bento-right{display:flex;flex-direction:column;gap:14px;}
+.bento-metric-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
 
-/* SCORE CARDS — the hero of the achievements section */
-.score-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-bottom:48px}
-.score-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r-md);padding:22px 24px;position:relative;overflow:hidden;transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease}
-.score-card:hover{border-color:rgba(0,194,168,.45);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,194,168,0.08)}
-.score-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--aqua);opacity:.5}
-.sc-year{font-size:11px;font-weight:600;color:var(--muted);letter-spacing:.06em;margin-bottom:6px;font-family:var(--font-mono)}
-.sc-comp{font-family:var(--font-sans);font-size:13px;font-weight:600;color:var(--cream);margin-bottom:14px;line-height:1.3}
-.sc-num{font-family:var(--font-mono);font-size:36px;font-weight:700;color:var(--aqua);line-height:1;letter-spacing:-0.04em}
-.sc-unit{font-size:12px;color:var(--muted);margin-top:4px;font-family:var(--font-mono)}
-.sc-sub{margin-top:12px;display:flex;flex-direction:column;gap:4px}
-.sc-sub span{font-size:12px;color:var(--muted);font-family:var(--font-mono)}
-.sc-sub strong{color:var(--cream)}
+/* Glow cards — light surface */
+.bento-glow{
+  border-radius:20px;padding:1px;position:relative;height:100%;
+  animation:bentoUp .6s ease both;
+  transition:transform .2s ease,box-shadow .2s ease;
+}
+.bento-glow:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(26,16,51,0.12);}
+.bento-glow.lit{
+  background:linear-gradient(135deg,rgba(245,158,11,.5) 0%,rgba(245,158,11,.15) 60%,rgba(245,158,11,.05) 100%);
+}
+.bento-glow.dim{
+  background:linear-gradient(135deg,rgba(99,83,180,.2) 0%,rgba(99,83,180,.05) 100%);
+}
+.bento-glow-inner{
+  border-radius:19px;height:100%;
+  background:#ffffff;
+  padding:18px 20px;
+  display:flex;flex-direction:column;justify-content:space-between;
+  position:relative;overflow:hidden;
+}
+.bento-glow.lit .bento-glow-inner::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 20% 20%,rgba(245,158,11,.08),transparent 65%);
+  pointer-events:none;
+}
+.bento-metric-label{
+  font-family:var(--font-mono);font-size:10px;font-weight:500;
+  color:var(--text-3);margin-bottom:10px;letter-spacing:.01em;line-height:1.4;
+}
+.bento-metric-value{
+  font-family:var(--font-mono);
+  font-size:clamp(1.7rem,3vw,2.6rem);
+  font-weight:700;letter-spacing:-.04em;line-height:1;margin-bottom:5px;
+}
+.bento-glow.lit .bento-metric-value{color:#b45309;}
+.bento-glow.dim .bento-metric-value{color:var(--text-2);}
+.bento-metric-sub{
+  font-family:var(--font-mono);font-size:10px;
+  color:var(--text-3);line-height:1.4;
+}
 
-/* TIMELINE */
-.timeline{position:relative;padding-left:28px}
-.timeline::before{content:'';position:absolute;left:6px;top:8px;bottom:8px;width:1px;background:var(--border)}
-.tl-item{position:relative;margin-bottom:26px}
-.tl-item::before{content:'';position:absolute;left:-25px;top:6px;width:8px;height:8px;border-radius:50%;background:var(--aqua)}
-.tl-item:last-child{margin-bottom:0}
-.tl-yr{font-size:11px;font-weight:600;color:var(--aqua);letter-spacing:.04em;margin-bottom:4px;font-family:var(--font-mono)}
-.tl-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r-md);padding:16px 20px;transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease}
-.tl-card:hover{border-color:rgba(0,194,168,.4);transform:translateY(-1px);box-shadow:0 6px 16px rgba(0,0,0,0.2)}
-.tl-t{font-family:var(--font-sans);font-size:15px;font-weight:600;color:var(--cream);margin-bottom:4px}
-.tl-d{font-size:13px;color:var(--muted);line-height:1.55}
+/* Activity cards */
+.bento-activity-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+.bento-act-card{
+  border-radius:18px;padding:16px 14px;
+  display:flex;flex-direction:column;gap:10px;
+  background:#ffffff;
+  border:1.5px solid var(--border);
+  animation:bentoUp .6s ease both;
+  transition:transform .2s ease,box-shadow .2s ease,border-color .2s;
+}
+.bento-act-card:hover{
+  transform:translateY(-3px);
+  box-shadow:0 10px 24px rgba(26,16,51,0.10);
+  border-color:rgba(99,83,180,.22);
+}
+.bento-act-icon{
+  width:38px;height:38px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.bento-act-icon svg{
+  width:18px;height:18px;stroke-width:2;fill:none;
+  stroke-linecap:round;stroke-linejoin:round;
+}
+.bento-act-title{
+  font-family:var(--font-sans);font-size:13px;font-weight:700;
+  color:var(--text);line-height:1.2;
+}
+.bento-act-detail{font-size:11px;color:var(--text-3);margin-top:2px;}
+.bento-act-badge{
+  font-size:10px;font-weight:700;padding:3px 9px;
+  border-radius:40px;align-self:flex-start;margin-top:auto;
+}
 
-/* ACHIEVE GRID */
-.ag{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:15px}
-.ac{background:var(--card);border:1px solid var(--border);border-radius:var(--r-md);padding:22px;transition:transform .2s,border-color .2s}
-.ac:hover{transform:translateY(-2px);border-color:rgba(0,194,168,.45);box-shadow:0 10px 28px rgba(0,0,0,0.25),0 0 0 1px rgba(0,194,168,0.08)}
-.ac-ico{font-size:30px;margin-bottom:13px}
-.ac-cat{font-size:11px;font-weight:600;color:var(--aqua);letter-spacing:.04em;margin-bottom:5px;font-family:var(--font-mono)}
-.ac-t{font-family:var(--font-sans);font-size:16px;font-weight:600;color:var(--cream);margin-bottom:5px;line-height:1.2}
-.ac-d{font-size:13px;color:var(--muted);line-height:1.6}
+/* Stat strip */
+.bento-strip{
+  border-radius:20px;padding:18px 28px;
+  background:#ffffff;
+  border:1.5px solid var(--border);
+  display:grid;grid-template-columns:repeat(4,1fr);gap:16px;
+  animation:bentoUp .6s .5s ease both;
+  box-shadow:0 2px 12px rgba(26,16,51,0.06);
+}
+.bento-strip-item{display:flex;align-items:center;gap:12px;}
+.bento-strip-emoji{font-size:20px;flex-shrink:0;}
+.bento-strip-val{
+  font-size:13px;font-weight:700;color:var(--text);line-height:1.3;
+}
+.bento-strip-sub{font-size:11px;color:var(--text-3);}
 
-/* INTERESTS */
-.ig{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:11px}
-.ic{background:var(--card);border:1px solid var(--border);border-radius:var(--r-md);padding:16px 18px;display:flex;align-items:center;gap:13px}
-.ic-ico{font-size:22px;flex-shrink:0}
-.ic-n{font-family:var(--font-sans);font-size:13px;font-weight:600;color:var(--cream)}
-.ic-l{font-size:11px;color:var(--muted);margin-top:2px}
+/* ── SCORE CARDS ──────────────────────────────────────────────── */
+.score-row{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:14px;margin-bottom:48px;
+}
+.score-card{
+  background:var(--surface);border:1.5px solid var(--border);
+  border-radius:20px;padding:22px 22px 18px;
+  position:relative;overflow:hidden;
+  transition:transform .2s ease,box-shadow .2s ease,border-color .2s;
+  box-shadow:0 2px 8px rgba(26,16,51,0.05);
+}
+.score-card:hover{
+  transform:translateY(-3px);
+  box-shadow:0 12px 28px rgba(26,16,51,0.12);
+  border-color:rgba(245,158,11,.4);
+}
+.score-card::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;
+  height:3px;background:var(--math);opacity:.7;
+}
+.sc-year{
+  font-family:var(--font-mono);font-size:11px;font-weight:600;
+  color:var(--text-3);letter-spacing:.06em;margin-bottom:6px;
+}
+.sc-comp{
+  font-family:var(--font-sans);font-size:13px;font-weight:700;
+  color:var(--text);margin-bottom:14px;line-height:1.3;
+}
+.sc-num{
+  font-family:var(--font-mono);font-size:36px;font-weight:700;
+  color:var(--math);line-height:1;letter-spacing:-.04em;
+}
+.sc-unit{font-size:12px;color:var(--text-3);margin-top:4px;font-family:var(--font-mono);}
+.sc-sub{margin-top:12px;display:flex;flex-direction:column;gap:4px;}
+.sc-sub span{font-size:12px;color:var(--text-2);font-family:var(--font-mono);}
+.sc-sub strong{color:var(--text);font-weight:700;}
 
-footer{text-align:center;padding:40px;font-size:12px;color:var(--muted);border-top:1px solid var(--border)}
+/* ── ACHIEVEMENT GRID (static cards — Travel/Culture pages use .ac too) ─── */
+.ag{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:15px;}
+.ac{
+  background:var(--surface);border:1.5px solid var(--border);
+  border-radius:20px;padding:22px;
+  transition:transform .2s ease,box-shadow .2s ease,border-color .2s;
+  box-shadow:0 2px 8px rgba(26,16,51,0.04);
+}
+.ac:hover{
+  transform:translateY(-3px);
+  box-shadow:0 12px 28px rgba(26,16,51,0.10);
+  border-color:rgba(245,158,11,.3);
+}
+.ac-ico{font-size:30px;margin-bottom:13px;}
+.ac-cat{
+  font-family:var(--font-mono);font-size:11px;font-weight:600;
+  color:var(--math);letter-spacing:.04em;margin-bottom:5px;
+}
+.ac-t{
+  font-family:var(--font-sans);font-size:16px;font-weight:700;
+  color:var(--text);margin-bottom:6px;line-height:1.25;
+}
+.ac-d{font-size:13px;color:var(--text-2);line-height:1.65;}
 
-/* ── FAMILY DASHBOARD ── */
-.dw{max-width:1200px;margin:0 auto;padding:40px 40px 80px}
-.dhead{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:28px;flex-wrap:wrap;gap:12px}
-.dgreet{font-family:var(--font-sans);font-size:26px;font-weight:700;color:var(--cream);letter-spacing:-.02em}
-.ddate{font-size:13px;color:var(--muted)}
-.krow{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:11px;margin-bottom:26px}
-.kc{background:var(--card);border:1px solid var(--border);border-radius:var(--r-md);padding:18px 20px}
-.kl{font-size:11px;color:var(--muted);font-weight:500;margin-bottom:7px;font-family:var(--font-mono)}
-.kv{font-family:var(--font-sans);font-size:22px;font-weight:700;color:var(--cream);letter-spacing:-.02em;line-height:1}
-.ks{font-size:11px;color:var(--aqua);margin-top:4px;font-weight:500;font-family:var(--font-mono)}
-.dg{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-.dc{background:var(--card);border:1px solid var(--border);border-radius:var(--r-md);padding:22px}
-.dc.full{grid-column:1/-1}
-.dct{font-family:var(--font-sans);font-size:14px;font-weight:600;color:var(--cream);margin-bottom:16px;display:flex;align-items:center;gap:7px}
+/* ── PILLAR / HERO LEGACY ─────────────────────────────────────── */
+.pillars{display:flex;flex-direction:column;gap:13px;animation:bentoUp .7s .15s ease both;}
+.pil{
+  background:var(--surface);border:1.5px solid var(--border);
+  border-radius:var(--r-md);padding:18px 22px;
+  display:flex;align-items:center;gap:16px;
+  position:relative;overflow:hidden;
+  transition:transform .2s ease,box-shadow .2s ease,border-color .2s;
+}
+.pil:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 20px rgba(26,16,51,0.10);
+  border-color:rgba(245,158,11,.35);
+}
+.pil::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;
+  width:3px;background:var(--math);opacity:.8;
+}
+.pil-ic{font-size:26px;flex-shrink:0;width:44px;text-align:center;}
+.pil-inf{flex:1;}
+.pil-t{font-family:var(--font-sans);font-size:15px;font-weight:700;color:var(--text);}
+.pil-d{font-size:12px;color:var(--text-2);margin-top:2px;}
+.badge{
+  font-size:11px;font-weight:700;
+  color:var(--math);background:rgba(245,158,11,.10);
+  border:1px solid rgba(245,158,11,.25);
+  border-radius:40px;padding:3px 10px;white-space:nowrap;
+}
 
-/* activity list */
-.al{display:flex;flex-direction:column;gap:9px}
-.ar{display:flex;align-items:center;gap:13px;padding:11px 13px;background:rgba(255,255,255,.03);border-radius:var(--r-sm);border:1px solid var(--border)}
-.dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
-.g{background:#00C2A8}.b{background:#4EA8DE}.a{background:#F9A825}.p{background:#A78BFA}.r{background:#F87171}
-.ai{flex:1}.an{font-size:13px;font-weight:500;color:var(--cream)}.ad{font-size:11px;color:var(--muted);margin-top:2px}
-.af{font-size:11px;color:var(--muted);white-space:nowrap}
+/* ── INTERESTS ────────────────────────────────────────────────── */
+.ig{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:11px;}
+.ic{
+  background:var(--surface);border:1.5px solid var(--border);
+  border-radius:var(--r-md);padding:16px 18px;
+  display:flex;align-items:center;gap:13px;
+  transition:transform .2s ease,box-shadow .2s;
+}
+.ic:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(26,16,51,.08);}
+.ic-ico{font-size:22px;flex-shrink:0;}
+.ic-n{font-family:var(--font-sans);font-size:13px;font-weight:700;color:var(--text);}
+.ic-l{font-size:11px;color:var(--text-3);margin-top:2px;}
 
-/* deadlines */
-.dl{display:flex;flex-direction:column;gap:9px}
-.dr{display:flex;align-items:flex-start;gap:13px;padding:13px;border-radius:var(--r-sm);border:1px solid var(--border);background:rgba(255,255,255,.03)}
-.dr.urg{border-color:rgba(239,68,68,.3)}.dr.sn{border-color:rgba(249,168,37,.3)}.dr.ok{border-color:rgba(0,194,168,.2)}
-.dm{flex-shrink:0;text-align:center;width:42px}
-.dmo{font-size:10px;font-weight:600;color:var(--muted);letter-spacing:.06em}
-.dday{font-family:var(--font-sans);font-size:20px;font-weight:700;color:var(--cream);line-height:1}
-.di{flex:1}.dn{font-size:13px;font-weight:500;color:var(--cream)}.dd{font-size:11px;color:var(--muted);margin-top:3px}
-.du{font-size:10px;font-weight:600;padding:2px 8px;border-radius:40px;flex-shrink:0;align-self:flex-start}
-.du.urg{background:rgba(239,68,68,.15);color:#F87171}
-.du.sn{background:rgba(249,168,37,.15);color:#FBBF24}
-.du.ok{background:rgba(0,194,168,.12);color:var(--aqua)}
+/* ── TIMELINE CSS (legacy — React accordion doesn't use these much) ─────── */
+.timeline{position:relative;padding-left:28px;}
+.timeline::before{
+  content:'';position:absolute;left:6px;top:8px;bottom:8px;
+  width:1px;background:var(--border);
+}
+.tl-item{position:relative;margin-bottom:26px;}
+.tl-item::before{
+  content:'';position:absolute;left:-25px;top:6px;
+  width:8px;height:8px;border-radius:50%;background:var(--math);
+}
+.tl-item:last-child{margin-bottom:0;}
+.tl-yr{
+  font-family:var(--font-mono);font-size:11px;font-weight:600;
+  color:var(--math);letter-spacing:.04em;margin-bottom:4px;
+}
+.tl-card{
+  background:var(--surface);border:1.5px solid var(--border);
+  border-radius:var(--r-md);padding:16px 20px;
+  transition:transform .2s ease,box-shadow .2s;
+}
+.tl-card:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(26,16,51,.08);}
+.tl-t{font-family:var(--font-sans);font-size:15px;font-weight:700;color:var(--text);margin-bottom:4px;}
+.tl-d{font-size:13px;color:var(--text-2);line-height:1.55;}
 
-/* progress */
-.pi{margin-bottom:15px}
-.ph{display:flex;justify-content:space-between;margin-bottom:6px}
-.pn{font-size:12px;font-weight:500;color:var(--cream)}
-.pv{font-size:11px;color:var(--muted)}
-.pt{height:4px;background:rgba(255,255,255,.07);border-radius:3px;overflow:hidden}
-.pf{height:100%;border-radius:3px;background:var(--aqua)}
-.pf.b{background:#4EA8DE}.pf.a{background:#F9A825}.pf.p{background:#A78BFA}.pf.r{background:#F87171}
+footer{
+  text-align:center;padding:40px;font-size:12px;
+  color:var(--text-3);border-top:1px solid var(--border);
+}
 
-/* comp table */
-.ct{width:100%;border-collapse:collapse;font-size:12px}
-.ct th{text-align:left;font-size:11px;font-weight:600;color:var(--muted);padding:0 11px 9px;letter-spacing:.05em;border-bottom:1px solid var(--border)}
-.ct td{padding:11px;border-bottom:1px solid rgba(255,255,255,.04);color:var(--cream);vertical-align:middle}
-.ct tr:last-child td{border-bottom:none}
-.ct tr:hover td{background:rgba(255,255,255,.02)}
-.sp{font-size:11px;font-weight:600;padding:3px 9px;border-radius:40px}
-.sp-done{background:rgba(0,194,168,.12);color:var(--aqua)}
-.sp-reg{background:rgba(239,68,68,.12);color:#F87171}
-.sp-prep{background:rgba(249,168,37,.12);color:#FBBF24}
-.sp-open{background:rgba(78,168,222,.12);color:#4EA8DE}
-.sp-act{background:rgba(167,139,250,.12);color:#A78BFA}
+/* ── FAMILY DASHBOARD ─────────────────────────────────────────── */
+.dw{max-width:1200px;margin:0 auto;padding:40px 40px 80px;}
+.dhead{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:28px;flex-wrap:wrap;gap:12px;}
+.dgreet{font-family:var(--font-sans);font-size:26px;font-weight:800;color:var(--text);letter-spacing:-.03em;}
+.ddate{font-size:13px;color:var(--text-3);}
+.krow{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:11px;margin-bottom:26px;}
+.kc{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r-md);padding:18px 20px;box-shadow:0 2px 8px rgba(26,16,51,0.04);}
+.kl{font-family:var(--font-mono);font-size:11px;color:var(--text-3);font-weight:500;margin-bottom:7px;}
+.kv{font-family:var(--font-sans);font-size:22px;font-weight:800;color:var(--text);letter-spacing:-.03em;line-height:1;}
+.ks{font-family:var(--font-mono);font-size:11px;color:var(--aqua);margin-top:4px;font-weight:600;}
+.dg{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+.dc{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r-md);padding:22px;}
+.dc.full{grid-column:1/-1;}
+.dct{font-family:var(--font-sans);font-size:14px;font-weight:700;color:var(--text);margin-bottom:16px;display:flex;align-items:center;gap:7px;}
+.al{display:flex;flex-direction:column;gap:9px;}
+.ar{display:flex;align-items:center;gap:13px;padding:11px 13px;background:var(--surface2);border-radius:var(--r-sm);border:1.5px solid var(--border);}
+.dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+.g{background:#10b981}.b{background:#06b6d4}.a{background:#f59e0b}.p{background:#8b5cf6}.r{background:#f43f5e}
+.ai{flex:1}.an{font-size:13px;font-weight:600;color:var(--text)}.ad{font-size:11px;color:var(--text-3);margin-top:2px;}
+.af{font-size:11px;color:var(--text-3);white-space:nowrap;}
+.dl{display:flex;flex-direction:column;gap:9px;}
+.dr{display:flex;align-items:flex-start;gap:13px;padding:13px;border-radius:var(--r-sm);border:1.5px solid var(--border);background:var(--surface2);}
+.dr.urg{border-color:rgba(244,63,94,.35)}.dr.sn{border-color:rgba(245,158,11,.35)}.dr.ok{border-color:rgba(6,182,212,.25);}
+.dm{flex-shrink:0;text-align:center;width:42px;}
+.dmo{font-family:var(--font-mono);font-size:10px;font-weight:600;color:var(--text-3);letter-spacing:.06em;}
+.dday{font-family:var(--font-sans);font-size:20px;font-weight:800;color:var(--text);line-height:1;}
+.di{flex:1}.dn{font-size:13px;font-weight:600;color:var(--text)}.dd{font-size:11px;color:var(--text-3);margin-top:3px;}
+.du{font-size:10px;font-weight:700;padding:2px 8px;border-radius:40px;flex-shrink:0;align-self:flex-start;}
+.du.urg{background:rgba(244,63,94,.12);color:#f43f5e}
+.du.sn{background:rgba(245,158,11,.12);color:#d97706}
+.du.ok{background:rgba(6,182,212,.12);color:var(--aqua)}
+.pi{margin-bottom:15px;}.ph{display:flex;justify-content:space-between;margin-bottom:6px;}
+.pn{font-size:12px;font-weight:600;color:var(--text)}.pv{font-size:11px;color:var(--text-3);}
+.pt{height:4px;background:var(--border);border-radius:3px;overflow:hidden;}
+.pf{height:100%;border-radius:3px;background:var(--math);}
+.pf.b{background:var(--swim)}.pf.a{background:var(--math)}.pf.p{background:var(--music)}.pf.r{background:var(--martial)}
+.ct{width:100%;border-collapse:collapse;font-size:12px;}
+.ct th{text-align:left;font-family:var(--font-mono);font-size:11px;font-weight:600;color:var(--text-3);padding:0 11px 9px;letter-spacing:.05em;border-bottom:1px solid var(--border);}
+.ct td{padding:11px;border-bottom:1px solid rgba(99,83,180,.07);color:var(--text);vertical-align:middle;}
+.ct tr:last-child td{border-bottom:none;}
+.ct tr:hover td{background:var(--surface2);}
+.sp{font-size:11px;font-weight:700;padding:3px 9px;border-radius:40px;}
+.sp-done{background:rgba(16,185,129,.12);color:#059669}
+.sp-reg{background:rgba(244,63,94,.12);color:#f43f5e}
+.sp-prep{background:rgba(245,158,11,.12);color:#d97706}
+.sp-open{background:rgba(6,182,212,.12);color:#0891b2}
+.sp-act{background:rgba(139,92,246,.12);color:#7c3aed}
+.nl{display:flex;flex-direction:column;gap:9px;}
+.ni{display:flex;gap:11px;align-items:flex-start;padding:11px 13px;background:var(--surface2);border-radius:var(--r-sm);border:1.5px solid var(--border);}
+.nd{font-family:var(--font-mono);font-size:11px;color:var(--text-3);white-space:nowrap;margin-top:2px;min-width:48px;}
+.nt{font-size:12px;color:var(--text);line-height:1.5;}
+.anr{display:flex;gap:7px;margin-top:11px;}
+.anr input{flex:1;background:var(--surface2);border:1.5px solid var(--border);border-radius:var(--r-sm);color:var(--text);font-family:var(--font-sans);font-size:12px;padding:8px 11px;outline:none;transition:border-color .2s;}
+.anr input:focus{border-color:var(--math);}
+.anr input::placeholder{color:var(--text-3);}
+.ab{padding:8px 14px;background:var(--text);color:var(--bg);border:none;border-radius:var(--r-sm);font-weight:700;font-size:12px;cursor:pointer;font-family:var(--font-sans);}
+.ab:hover{background:#2d1f6e;}
 
-/* notes */
-.nl{display:flex;flex-direction:column;gap:9px}
-.ni{display:flex;gap:11px;align-items:flex-start;padding:11px 13px;background:rgba(255,255,255,.03);border-radius:var(--r-sm);border:1px solid var(--border)}
-.nd{font-size:11px;color:var(--muted);white-space:nowrap;margin-top:2px;min-width:48px}
-.nt{font-size:12px;color:var(--cream);line-height:1.5}
-.anr{display:flex;gap:7px;margin-top:11px}
-.anr input{flex:1;background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:var(--r-sm);color:var(--cream);font-family:'Inter',sans-serif;font-size:12px;padding:8px 11px;outline:none;transition:border-color .2s}
-.anr input:focus{border-color:var(--aqua)}
-.anr input::placeholder{color:var(--muted)}
-.ab{padding:8px 14px;background:var(--aqua);color:var(--navy);border:none;border-radius:var(--r-sm);font-weight:600;font-size:12px;cursor:pointer;font-family:'Inter',sans-serif}
-.ab:hover{background:var(--aqua-dim)}
+/* ── PIN OVERLAY ───────────────────────────────────────────────── */
+.pin-overlay{display:none;position:fixed;inset:0;z-index:200;background:rgba(13,26,45,0.75);backdrop-filter:blur(16px);align-items:center;justify-content:center;}
+.pin-overlay.show{display:flex;}
+.pin-box{background:var(--surface);border:1.5px solid var(--border);border-radius:24px;padding:40px 36px;width:340px;text-align:center;box-shadow:0 24px 60px rgba(26,16,51,0.2);}
+.pin-icon{font-size:36px;margin-bottom:16px;}
+.pin-title{font-family:var(--font-sans);font-size:20px;font-weight:800;color:var(--text);margin-bottom:6px;}
+.pin-sub{font-size:13px;color:var(--text-3);margin-bottom:24px;}
+.pin-input{width:100%;background:var(--surface2);border:1.5px solid var(--border);border-radius:10px;color:var(--text);font-family:var(--font-mono);font-size:24px;font-weight:700;letter-spacing:.2em;padding:12px 16px;text-align:center;outline:none;transition:border-color .2s;margin-bottom:16px;}
+.pin-input:focus{border-color:var(--math);}
+.pin-input.error{border-color:#f43f5e;animation:shake .3s ease;}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.pin-btn{width:100%;padding:12px;background:var(--text);color:var(--bg);border:none;border-radius:10px;font-family:var(--font-sans);font-weight:700;font-size:14px;cursor:pointer;transition:background .2s;margin-bottom:10px;}
+.pin-btn:hover{background:#102040;}
+.pin-cancel{font-size:12px;color:var(--text-3);cursor:pointer;text-decoration:underline;background:none;border:none;font-family:var(--font-sans);}
+.pin-cancel:hover{color:var(--text);}
+.pin-error{font-size:12px;color:#f43f5e;margin-top:8px;min-height:16px;}
 
+/* ── TRAVEL / CULTURE PAGES (use .ac .ag .section already covered) ───── */
+.hero{display:grid;grid-template-columns:1fr 1fr;min-height:calc(100vh - 80px);max-width:1200px;margin:0 auto;padding:60px 40px;gap:60px;align-items:center;}
+.hleft{animation:bentoUp .7s ease both;}
+.gtag{display:inline-block;font-size:12px;font-weight:700;color:var(--aqua);border:1.5px solid rgba(6,182,212,.3);border-radius:40px;padding:4px 14px;margin-bottom:20px;background:rgba(6,182,212,.08);}
+.hname{font-family:var(--font-sans);font-size:clamp(50px,7vw,84px);font-weight:800;line-height:.95;letter-spacing:-.04em;color:var(--text);}
+.hname em{font-style:normal;color:var(--math);display:block;}
+.hsub{font-size:15px;color:var(--text-2);margin-top:18px;max-width:380px;line-height:1.7;}
+.hstats{display:flex;gap:28px;margin-top:40px;flex-wrap:wrap;}
+.snum{font-family:var(--font-mono);font-size:26px;font-weight:700;color:var(--text);line-height:1;}
+.slbl{font-size:11px;color:var(--text-3);margin-top:4px;font-weight:500;}
+.sdiv{width:1px;background:var(--border);align-self:stretch;}
+.pil-ic-pill{display:flex;flex-direction:column;gap:13px;animation:bentoUp .7s .15s ease both;}
 
-  /* ── PIN OVERLAY ── */
-  .pin-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    z-index: 200;
-    background: rgba(13,27,42,0.92);
-    backdrop-filter: blur(16px);
-    align-items: center;
-    justify-content: center;
-  }
-  .pin-overlay.show { display: flex; }
-  .pin-box {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg, 20px);
-    padding: 40px 36px;
-    width: 340px;
-    text-align: center;
-    box-shadow: 0 24px 60px rgba(0,0,0,0.5);
-  }
-  .pin-icon { font-size: 36px; margin-bottom: 16px; }
-  .pin-title {
-    font-family: var(--font-sans);
-    font-size: 20px;
-    font-weight: 700;
-    color: var(--cream);
-    margin-bottom: 6px;
-  }
-  .pin-sub { font-size: 13px; color: var(--muted); margin-bottom: 24px; }
-  .pin-input {
-    width: 100%;
-    background: rgba(255,255,255,0.06);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    color: var(--cream);
-    font-family: 'Inter', sans-serif;
-    font-size: 24px;
-    font-weight: 600;
-    letter-spacing: 0.2em;
-    padding: 12px 16px;
-    text-align: center;
-    outline: none;
-    transition: border-color 0.2s;
-    margin-bottom: 16px;
-  }
-  .pin-input:focus { border-color: var(--aqua); }
-  .pin-input.error { border-color: #F87171; animation: shake 0.3s ease; }
-  @keyframes shake {
-    0%,100%{transform:translateX(0)}
-    25%{transform:translateX(-6px)}
-    75%{transform:translateX(6px)}
-  }
-  .pin-btn {
-    width: 100%;
-    padding: 12px;
-    background: var(--aqua);
-    color: var(--navy);
-    border: none;
-    border-radius: 8px;
-    font-family: 'Inter', sans-serif;
-    font-weight: 600;
-    font-size: 14px;
-    cursor: pointer;
-    transition: background 0.2s;
-    margin-bottom: 10px;
-  }
-  .pin-btn:hover { background: var(--aqua-dim); }
-  .pin-cancel {
-    font-size: 12px;
-    color: var(--muted);
-    cursor: pointer;
-    text-decoration: underline;
-    background: none;
-    border: none;
-    font-family: 'Inter', sans-serif;
-  }
-  .pin-cancel:hover { color: var(--cream); }
-  .pin-error { font-size: 12px; color: #F87171; margin-top: 8px; min-height: 16px; }
-
-  
-  /* ── BENTO HERO ── */
-  .bento-hero {
-    width: 100%;
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 60px 40px 40px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-  .bento-outer {
-    display: grid;
-    grid-template-columns: 2fr 3fr;
-    gap: 12px;
-  }
-  /* Name card */
-  .bento-name {
-    border-radius: 20px;
-    padding: 32px 28px;
-    background: linear-gradient(145deg, #0c1829 0%, #060d18 100%);
-    border: 1px solid #1a2535;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    min-height: 280px;
-    animation: bentoUp 0.7s ease both;
-  }
-  @keyframes bentoUp {
-    from { opacity: 0; transform: translateY(16px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-  .bento-location {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 11px;
-    font-weight: 500;
-    border-radius: 40px;
-    padding: 4px 12px;
-    margin-bottom: 22px;
-    color: #2dd4bf;
-    background: rgba(45,212,191,0.06);
-    border: 1px solid rgba(45,212,191,0.2);
-    width: fit-content;
-  }
-  .bento-name-first {
-    font-family: var(--font-sans);
-    font-size: clamp(2.2rem, 4.5vw, 3.6rem);
-    font-weight: 800;
-    letter-spacing: -0.04em;
-    line-height: 0.95;
-    color: #f1f5f9;
-  }
-  .bento-name-last {
-    font-family: var(--font-sans);
-    font-size: clamp(2.2rem, 4.5vw, 3.6rem);
-    font-weight: 800;
-    letter-spacing: -0.04em;
-    line-height: 0.95;
-    color: #2dd4bf;
-    margin-bottom: 18px;
-  }
-  .bento-bio {
-    font-size: 13px;
-    line-height: 1.65;
-    color: #6183a9;
-    max-width: 260px;
-  }
-  .bento-footer {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-top: 28px;
-    font-size: 11px;
-    color: #617ca2;
-  }
-  .bento-footer-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: #2dd4bf;
-    opacity: 0.7;
-    flex-shrink: 0;
-  }
-  /* Right column */
-  .bento-right {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-  /* Metric row */
-  .bento-metric-row {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
-  }
-  /* Glow card wrapper */
-  .bento-glow {
-    border-radius: 20px;
-    padding: 1px;
-    position: relative;
-    height: 100%;
-    animation: bentoUp 0.6s ease both;
-    transition: transform .2s ease, filter .2s ease;
-  }
-  .bento-glow:hover {
-    transform: translateY(-2px);
-    filter: brightness(1.06);
-  }
-  .bento-glow.lit {
-    background: linear-gradient(135deg, rgba(45,212,191,0.45) 0%, rgba(45,212,191,0.12) 50%, #1a2535 100%);
-  }
-  .bento-glow.dim {
-    background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.04) 100%);
-  }
-  .bento-glow-inner {
-    border-radius: 19px;
-    height: 100%;
-    background: linear-gradient(145deg, #10203a 0%, #0a1525 100%);
-    padding: 18px 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    position: relative;
-    overflow: hidden;
-  }
-  .bento-glow.lit .bento-glow-inner::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse at 25% 25%, rgba(45,212,191,0.1), transparent 65%);
-    pointer-events: none;
-  }
-  .bento-metric-label {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    font-weight: 500;
-    color: #6183a9;
-    margin-bottom: 10px;
-    letter-spacing: 0.01em;
-    line-height: 1.4;
-  }
-  .bento-metric-value {
-    font-family: var(--font-mono);
-    font-size: clamp(1.7rem, 3vw, 2.6rem);
-    font-weight: 700;
-    letter-spacing: -0.04em;
-    line-height: 1;
-    margin-bottom: 5px;
-  }
-  .bento-glow.lit .bento-metric-value { color: #e2e8f0; }
-  .bento-glow.dim .bento-metric-value { color: #94a3b8; }
-  .bento-metric-sub {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    color: #5e7896;
-    line-height: 1.4;
-  }
-  /* Activity row */
-  .bento-activity-row {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
-  }
-  .bento-act-card {
-    border-radius: 16px;
-    padding: 16px 14px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    background: linear-gradient(145deg, #0f1e32 0%, #09131e 100%);
-    border: 1px solid rgba(255,255,255,0.08);
-    animation: bentoUp 0.6s ease both;
-    transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
-  }
-  .bento-act-card:hover {
-    transform: translateY(-2px);
-    border-color: rgba(255,255,255,0.14);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
-  }
-  .bento-act-icon {
-    width: 36px;
-    height: 36px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-  .bento-act-icon svg {
-    width: 17px;
-    height: 17px;
-    stroke-width: 1.8;
-    fill: none;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
-  .bento-act-title {
-    font-family: var(--font-sans);
-    font-size: 13px;
-    font-weight: 600;
-    color: #e2e8f0;
-    line-height: 1.2;
-  }
-  .bento-act-detail {
-    font-size: 11px;
-    color: #607a9a;
-    margin-top: 2px;
-  }
-  .bento-act-badge {
-    font-size: 10px;
-    font-weight: 600;
-    padding: 3px 9px;
-    border-radius: 40px;
-    align-self: flex-start;
-    margin-top: auto;
-  }
-  /* Stat strip */
-  .bento-strip {
-    border-radius: 20px;
-    padding: 16px 24px;
-    background: linear-gradient(90deg, #0f1e32 0%, #09131e 100%);
-    border: 1px solid rgba(255,255,255,0.08);
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-    animation: bentoUp 0.6s 0.5s ease both;
-  }
-  .bento-strip-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .bento-strip-dot {
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background: #2dd4bf;
-    flex-shrink: 0;
-    opacity: 0.7;
-  }
-  .bento-strip-val {
-    font-size: 12px;
-    font-weight: 600;
-    color: #6b8db0;
-    line-height: 1.3;
-  }
-  .bento-strip-sub {
-    font-size: 10px;
-    color: #6b8db0;
-  }
-  /* Responsive */
-  @media(max-width:900px) {
-    .bento-outer { grid-template-columns: 1fr; }
-    .bento-metric-row { grid-template-columns: repeat(2, 1fr); }
-    .bento-activity-row { grid-template-columns: repeat(2, 1fr); }
-    .bento-strip { grid-template-columns: repeat(2, 1fr); }
-  }
-  @media(max-width:500px) {
-    .bento-hero { padding: 40px 20px 20px; }
-    .bento-metric-row { grid-template-columns: repeat(2, 1fr); }
-    .bento-activity-row { grid-template-columns: repeat(2, 1fr); }
-    .bento-strip { grid-template-columns: 1fr 1fr; }
-  }
-
-  @media(max-width:860px){
-  nav{padding:14px 20px}
-  .hero{grid-template-columns:1fr;padding:40px 24px;gap:40px;min-height:auto}
-  .section{padding:60px 24px}
-  .dw{padding:24px 20px 60px}
-  .dg{grid-template-columns:1fr}
-  .krow{grid-template-columns:1fr 1fr}
+/* ── RESPONSIVE ───────────────────────────────────────────────── */
+@media(max-width:900px){
+  .bento-outer{grid-template-columns:1fr;}
+  .bento-metric-row{grid-template-columns:repeat(2,1fr);}
+  .bento-activity-row{grid-template-columns:repeat(2,1fr);}
+  .bento-strip{grid-template-columns:repeat(2,1fr);}
+}
+@media(max-width:860px){
+  nav{padding:14px 20px;}
+  .hero{grid-template-columns:1fr;padding:40px 24px;gap:40px;min-height:auto;}
+  .section{padding:56px 24px;}
+  .dw{padding:24px 20px 60px;}
+  .dg{grid-template-columns:1fr;}
+  .krow{grid-template-columns:1fr 1fr;}
+  .bento-hero{padding:40px 20px 20px;}
 }
 @media(max-width:500px){
-  .hname{font-size:42px}
-  .krow{grid-template-columns:1fr}
-  .tbtn{padding:6px 12px;font-size:12px}
+  .bento-metric-row{grid-template-columns:repeat(2,1fr);}
+  .bento-activity-row{grid-template-columns:repeat(2,1fr);}
+  .bento-strip{grid-template-columns:1fr 1fr;}
+  .krow{grid-template-columns:1fr;}
+  .tbtn{padding:6px 12px;font-size:12px;}
 }
 </style>
+
 </head>
 <body>
 
 <nav>
-  <div class="logo">K<span>rthin Kothinti</span></div>
+  <div class="logo">Krthin<span> ✦</span></div>
   <div class="toggle">
     <button class="tbtn on" onclick="sw('pub',this)">Portfolio</button>
     <button class="tbtn" onclick="promptFamily(this)">Family 🔒</button>
@@ -560,16 +521,20 @@ footer{text-align:center;padding:40px;font-size:12px;color:var(--muted);border-t
 
     <div class="bento-outer">
 
-      <!-- Name card -->
+      <!-- Name card — deep indigo gradient, stays dark -->
       <div class="bento-name" style="animation-delay:0.05s">
         <div>
           <div class="bento-location">
             <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            Grade 4 · Horace Mann · Redmond WA
+            4th Grade · Horace Mann · Redmond WA
           </div>
+
+          <!-- Photo placeholder — uncomment when ready -->
+          <!-- <img src="krthin.jpg" alt="Krthin" style="width:80px;height:80px;border-radius:50%;object-fit:cover;border:3px solid #f59e0b;margin-bottom:16px;display:block;"> -->
+
           <div class="bento-name-first">Krthin</div>
           <div class="bento-name-last">Kothinti</div>
-          <p class="bento-bio">IMC Gold Medalist · Math Kangaroo Top&nbsp;20 nationally · Geography Bee National Qualifier · Oom Yung Doe Bronze Medalist · Wave Aquatics Excellence Award.</p>
+          <p class="bento-bio">Hey! 👋 I'm 10 years old and I love solving hard math problems, racing in the pool, training in martial arts, and singing western vocals.</p>
         </div>
         <div class="bento-footer">
           <div class="bento-footer-dot"></div>
@@ -577,7 +542,7 @@ footer{text-align:center;padding:40px;font-size:12px;color:var(--muted);border-t
         </div>
       </div>
 
-      <!-- Right column -->
+      <!-- Right column — light cards -->
       <div class="bento-right">
 
         <!-- Metric cards -->
@@ -587,7 +552,7 @@ footer{text-align:center;padding:40px;font-size:12px;color:var(--muted);border-t
             <div class="bento-glow-inner">
               <p class="bento-metric-label">International Math Contest</p>
               <div>
-                <div class="bento-metric-value">Gold</div>
+                <div class="bento-metric-value">🥇 Gold</div>
                 <p class="bento-metric-sub">RSM Minds of the Future · 2026</p>
               </div>
             </div>
@@ -595,10 +560,10 @@ footer{text-align:center;padding:40px;font-size:12px;color:var(--muted);border-t
 
           <div class="bento-glow lit" style="animation-delay:0.19s">
             <div class="bento-glow-inner">
-              <p class="bento-metric-label">Math Kangaroo · National Rank</p>
+              <p class="bento-metric-label">Math Kangaroo · Nationally</p>
               <div>
                 <div class="bento-metric-value">#14</div>
-                <p class="bento-metric-sub">Score 81 · State rank #10 (WA)</p>
+                <p class="bento-metric-sub">out of 6 million students!</p>
               </div>
             </div>
           </div>
@@ -608,17 +573,17 @@ footer{text-align:center;padding:40px;font-size:12px;color:var(--muted);border-t
               <p class="bento-metric-label">Math Kangaroo 2026</p>
               <div>
                 <div class="bento-metric-value">Top 20</div>
-                <p class="bento-metric-sub">Nationwide · 6M+ participants</p>
+                <p class="bento-metric-sub">Nationwide · grade level</p>
               </div>
             </div>
           </div>
 
           <div class="bento-glow dim" style="animation-delay:0.33s">
             <div class="bento-glow-inner">
-              <p class="bento-metric-label">National Math Challenge</p>
+              <p class="bento-metric-label">Math Challenge Tournament</p>
               <div>
                 <div class="bento-metric-value">84th</div>
-                <p class="bento-metric-sub">percentile · 183/219 pts</p>
+                <p class="bento-metric-sub">percentile · 183 of 219 pts</p>
               </div>
             </div>
           </div>
@@ -629,91 +594,91 @@ footer{text-align:center;padding:40px;font-size:12px;color:var(--muted);border-t
         <div class="bento-activity-row">
 
           <div class="bento-act-card" style="animation-delay:0.38s">
-            <div class="bento-act-icon" style="background:rgba(45,212,191,0.08);border:1px solid rgba(45,212,191,0.2);">
-              <svg viewBox="0 0 24 24" style="stroke:#2dd4bf"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="8" y2="10"/><line x1="12" y1="10" x2="12" y2="10"/><line x1="16" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="8" y2="14"/><line x1="12" y1="14" x2="12" y2="14"/><line x1="16" y1="14" x2="16" y2="14"/><line x1="8" y1="18" x2="12" y2="18"/></svg></svg>
+            <div class="bento-act-icon" style="background:rgba(245,158,11,0.12);border:1.5px solid rgba(245,158,11,0.25);">
+              <svg viewBox="0 0 24 24" style="stroke:#d97706"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="16" y2="14"/><line x1="8" y1="18" x2="12" y2="18"/></svg>
             </div>
             <div>
-              <div class="bento-act-title">Mathematics</div>
-              <div class="bento-act-detail">RSM · AMC · AoPS</div>
+              <div class="bento-act-title">Math Competitions</div>
+              <div class="bento-act-detail">RSM · AMC · Math Kangaroo</div>
             </div>
-            <div class="bento-act-badge" style="color:#2dd4bf;background:rgba(45,212,191,0.08);border:1px solid rgba(45,212,191,0.18);">IMC Gold</div>
+            <div class="bento-act-badge" style="color:#d97706;background:rgba(245,158,11,0.12);border:1.5px solid rgba(245,158,11,0.25);">IMC Gold 🥇</div>
           </div>
 
           <div class="bento-act-card" style="animation-delay:0.43s">
-            <div class="bento-act-icon" style="background:rgba(129,140,248,0.08);border:1px solid rgba(129,140,248,0.2);">
-              <svg viewBox="0 0 24 24" style="stroke:#818cf8"><polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"/><line x1="13" y1="19" x2="19" y2="13"/><line x1="16" y1="16" x2="20" y2="20"/><line x1="19" y1="21" x2="21" y2="19"/><polyline points="14.5 6.5 18 3 21 3 21 6 17.5 9.5"/><line x1="5" y1="14" x2="9" y2="18"/><line x1="7" y1="21" x2="9" y2="19"/></svg>
+            <div class="bento-act-icon" style="background:rgba(244,63,94,0.10);border:1.5px solid rgba(244,63,94,0.22);">
+              <svg viewBox="0 0 24 24" style="stroke:#f43f5e"><polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"/><line x1="13" y1="19" x2="19" y2="13"/><line x1="16" y1="16" x2="20" y2="20"/><line x1="19" y1="21" x2="21" y2="19"/><polyline points="14.5 6.5 18 3 21 3 21 6 17.5 9.5"/><line x1="5" y1="14" x2="9" y2="18"/><line x1="7" y1="21" x2="9" y2="19"/></svg>
             </div>
             <div>
-              <div class="bento-act-title">Oom Yung Doe</div>
-              <div class="bento-act-detail">State · Bronze Medal</div>
+              <div class="bento-act-title">Martial Arts</div>
+              <div class="bento-act-detail">Oom Yung Doe · Kirkland</div>
             </div>
-            <div class="bento-act-badge" style="color:#818cf8;background:rgba(129,140,248,0.08);border:1px solid rgba(129,140,248,0.18);">Kirkland</div>
+            <div class="bento-act-badge" style="color:#f43f5e;background:rgba(244,63,94,0.10);border:1.5px solid rgba(244,63,94,0.22);">🥉 Bronze</div>
           </div>
 
           <div class="bento-act-card" style="animation-delay:0.48s">
-            <div class="bento-act-icon" style="background:rgba(56,189,248,0.08);border:1px solid rgba(56,189,248,0.2);">
-              <svg viewBox="0 0 24 24" style="stroke:#38bdf8"><path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/></svg>
+            <div class="bento-act-icon" style="background:rgba(6,182,212,0.10);border:1.5px solid rgba(6,182,212,0.22);">
+              <svg viewBox="0 0 24 24" style="stroke:#0891b2"><path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/></svg>
             </div>
             <div>
-              <div class="bento-act-title">Swimming</div>
+              <div class="bento-act-title">Competitive Swimming</div>
               <div class="bento-act-detail">Wave Aquatics · AG1</div>
             </div>
-            <div class="bento-act-badge" style="color:#38bdf8;background:rgba(56,189,248,0.08);border:1px solid rgba(56,189,248,0.18);">Excellence</div>
+            <div class="bento-act-badge" style="color:#0891b2;background:rgba(6,182,212,0.10);border:1.5px solid rgba(6,182,212,0.22);">⭐ Excellence</div>
           </div>
 
           <div class="bento-act-card" style="animation-delay:0.53s">
-            <div class="bento-act-icon" style="background:rgba(244,114,182,0.08);border:1px solid rgba(244,114,182,0.2);">
-              <svg viewBox="0 0 24 24" style="stroke:#f472b6"><path d="M12 2a3 3 0 0 1 3 3v7a3 3 0 0 1-6 0V5a3 3 0 0 1 3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+            <div class="bento-act-icon" style="background:rgba(139,92,246,0.10);border:1.5px solid rgba(139,92,246,0.22);">
+              <svg viewBox="0 0 24 24" style="stroke:#7c3aed"><path d="M12 2a3 3 0 0 1 3 3v7a3 3 0 0 1-6 0V5a3 3 0 0 1 3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
             </div>
             <div>
               <div class="bento-act-title">Western Vocals</div>
               <div class="bento-act-detail">Spardha · Rockschool Gr 3</div>
             </div>
-            <div class="bento-act-badge" style="color:#f472b6;background:rgba(244,114,182,0.08);border:1px solid rgba(244,114,182,0.18);">Open Mic</div>
+            <div class="bento-act-badge" style="color:#7c3aed;background:rgba(139,92,246,0.10);border:1.5px solid rgba(139,92,246,0.22);">🎤 Open Mic</div>
           </div>
 
         </div>
       </div>
     </div>
 
-    <!-- Stat strip -->
+    <!-- Stat strip — kid-friendly copy -->
     <div class="bento-strip">
       <div class="bento-strip-item">
-        <div class="bento-strip-dot"></div>
+        <div class="bento-strip-emoji">🧩</div>
         <div>
-          <div class="bento-strip-val">9 competition results</div>
-          <div class="bento-strip-sub">all verified from records</div>
+          <div class="bento-strip-val">Love solving hard puzzles</div>
+          <div class="bento-strip-sub">9 competition results so far</div>
         </div>
       </div>
       <div class="bento-strip-item">
-        <div class="bento-strip-dot"></div>
+        <div class="bento-strip-emoji">📈</div>
         <div>
-          <div class="bento-strip-val">RSM class 5_3G</div>
-          <div class="bento-strip-sub">hardest available track</div>
+          <div class="bento-strip-val">Leveled up to 5th-grade math</div>
+          <div class="bento-strip-sub">while still in 4th grade!</div>
         </div>
       </div>
       <div class="bento-strip-item">
-        <div class="bento-strip-dot"></div>
+        <div class="bento-strip-emoji">🏊</div>
         <div>
-          <div class="bento-strip-val">AG1 · Excellence Award</div>
-          <div class="bento-strip-sub">Wave Aquatics 2026</div>
+          <div class="bento-strip-val">Racing the clock in the pool</div>
+          <div class="bento-strip-sub">Wave Aquatics · Excellence Award</div>
         </div>
       </div>
       <div class="bento-strip-item">
-        <div class="bento-strip-dot"></div>
+        <div class="bento-strip-emoji">🌍</div>
         <div>
-          <div class="bento-strip-val">5 countries visited</div>
-          <div class="bento-strip-sub">Galápagos Dec 2026</div>
+          <div class="bento-strip-val">Explored 5 countries</div>
+          <div class="bento-strip-sub">Galápagos next — Dec 2026! 🇪🇨</div>
         </div>
       </div>
     </div>
 
   </section>
 
-  <!-- COMPETITION SCORES -->
+<!-- COMPETITION SCORES -->
   <section class="section" style="padding-top:96px;">
-    <div class="s-eye">Results</div>
-    <h2 class="s-title">Competition scores & rankings</h2>
+    <div class="s-eye">My Best Results</div>
+    <h2 class="s-title">My competition scores 🏆</h2>
     <div class="score-row">
 
       <div class="score-card">
@@ -941,7 +906,7 @@ footer{text-align:center;padding:40px;font-size:12px;color:var(--muted);border-t
               React.createElement("h3", {
                 style: {
                   fontSize: 17, fontWeight: 700,
-                  color: "#f1f5f9", letterSpacing: "-0.02em",
+                  color: "#1a1033", letterSpacing: "-0.02em",
                   lineHeight: 1.2, margin: 0,
                 }
               }, item.grade)
@@ -992,7 +957,7 @@ footer{text-align:center;padding:40px;font-size:12px;color:var(--muted);border-t
                         }
                       }),
                       React.createElement("span", {
-                        style: { fontSize: 13, color: "#94a3b8", lineHeight: 1.5 }
+                        style: { fontSize: 13, color: "#4a4568", lineHeight: 1.5 }
                       }, h)
                     )
                   )
@@ -1001,7 +966,7 @@ footer{text-align:center;padding:40px;font-size:12px;color:var(--muted);border-t
                 /* Divider */
                 React.createElement("div", {
                   style: {
-                    height: 1, background: "#1a2d42", margin: "14px 0"
+                    height: 1, background: "rgba(99,83,180,0.12)", margin: "14px 0"
                   }
                 }),
 
@@ -1064,8 +1029,8 @@ footer{text-align:center;padding:40px;font-size:12px;color:var(--muted);border-t
             to   { opacity: 1; transform: translateY(0); }
           }
         `),
-        React.createElement("div", { className: "s-eye" }, "Journey"),
-        React.createElement("h2", { className: "s-title" }, "Year by year"),
+        React.createElement("div", { className: "s-eye" }, "My story"),
+        React.createElement("h2", { className: "s-title" }, "My journey, grade by grade 📚"),
         React.createElement("div", {
           style: { marginTop: 28, display: "flex", flexDirection: "column" }
         },
@@ -1254,7 +1219,7 @@ footer{text-align:center;padding:40px;font-size:12px;color:var(--muted);border-t
         transition:{ duration:0.25, ease:[0.25,0.46,0.45,0.94] },
         style:{
           background:"linear-gradient(145deg,#0c1829 0%,#070e1a 100%)",
-          border:`1px solid #1a2d42`,
+          border:`1.5px solid rgba(99,83,180,0.12)`,
           borderLeft:`3px solid ${cat.accent}`,
           borderRadius:16,
           padding:"20px 20px 36px",
@@ -1282,7 +1247,7 @@ footer{text-align:center;padding:40px;font-size:12px;color:var(--muted);border-t
         ),
         /* title */
         React.createElement("div",{
-          style:{ fontSize:15, fontWeight:700, color:"#e2e8f0", lineHeight:1.25, position:"relative" }
+          style:{ fontSize:15, fontWeight:700, color:"#1a1033", lineHeight:1.25, position:"relative" }
         }, React.createElement(Hl,{ text:item.title, q })),
         /* tag */
         React.createElement("div",{
@@ -1290,7 +1255,7 @@ footer{text-align:center;padding:40px;font-size:12px;color:var(--muted);border-t
         }, item.tag),
         /* description */
         React.createElement("div",{
-          style:{ fontSize:13, color:"#6c82a0", lineHeight:1.65, position:"relative" }
+          style:{ fontSize:13, color:"#4a4568", lineHeight:1.65, position:"relative" }
         }, React.createElement(Hl,{ text:item.desc, q })),
         /* category chip */
         React.createElement("div",{
@@ -1313,9 +1278,9 @@ footer{text-align:center;padding:40px;font-size:12px;color:var(--muted);border-t
           display:"inline-flex", alignItems:"center", gap:6,
           fontSize:13, fontWeight: active ? 600 : 500,
           padding:"7px 15px", borderRadius:40, cursor:"pointer",
-          border: active ? `1px solid ${accent}` : "1px solid #1a2d42",
-          background: active ? `${accent}10` : "transparent",
-          color: active ? accent : "#6c82a0",
+          border: active ? `1.5px solid ${accent}` : "1.5px solid rgba(13,26,45,0.12)",
+          background: active ? `${accent}12` : "transparent",
+          color: active ? accent : "#4a4568",
           transition:"all 0.16s ease",
           whiteSpace:"nowrap", outline:"none",
           fontFamily:"inherit",
@@ -1325,8 +1290,8 @@ footer{text-align:center;padding:40px;font-size:12px;color:var(--muted);border-t
         React.createElement("span",{
           style:{
             fontSize:10, fontWeight:700, padding:"1px 6px", borderRadius:20,
-            background: active ? `${accent}1a` : "#1a2d42",
-            color: active ? accent : "#617ca2",
+            background: active ? `${accent}15` : "#f1f0fb",
+            color: active ? accent : "#7c7a99",
             minWidth:20, textAlign:"center",
           }
         }, count)
@@ -1365,7 +1330,7 @@ footer{text-align:center;padding:40px;font-size:12px;color:var(--muted);border-t
         /* section header */
         React.createElement("div",{ style:{ marginBottom:28 }},
           React.createElement("div",{ className:"s-eye" },"Competitions & recognition"),
-          React.createElement("h2",{ className:"s-title" },"Achievements across every arena")
+          React.createElement("h2",{ className:"s-title" },"Things I'm proud of 🌟")
         ),
 
         /* controls */
@@ -1400,7 +1365,7 @@ footer{text-align:center;padding:40px;font-size:12px;color:var(--muted);border-t
               value:q,
               onChange:e=>setQ(e.target.value),
               style:{
-                background:"#0c1829", border:"1px solid #1a2d42",
+                background:"#0c1829", border:"1.5px solid rgba(13,26,45,0.12)",
                 borderRadius:40, padding:"7px 32px 7px 32px",
                 fontSize:13, color:"#94a3b8", outline:"none",
                 width:180, transition:"border-color 0.16s", fontFamily:"inherit",
@@ -1413,7 +1378,7 @@ footer{text-align:center;padding:40px;font-size:12px;color:var(--muted);border-t
               style:{
                 position:"absolute", right:10, top:"50%", transform:"translateY(-50%)",
                 background:"none", border:"none", cursor:"pointer",
-                color:"#6c82a0", fontSize:13, lineHeight:1, padding:2,
+                color:"#4a4568", fontSize:13, lineHeight:1, padding:2,
               }
             },"✕")
           )
@@ -1444,10 +1409,10 @@ footer{text-align:center;padding:40px;font-size:12px;color:var(--muted);border-t
               ? React.createElement(motion.div,{
                   key:"empty",
                   initial:{ opacity:0 }, animate:{ opacity:1 }, exit:{ opacity:0 },
-                  style:{ gridColumn:"1/-1", textAlign:"center", padding:"52px 20px", color:"#617ca2" }
+                  style:{ gridColumn:"1/-1", textAlign:"center", padding:"52px 20px", color:"#4a4568" }
                 },
                   React.createElement("div",{ style:{ fontSize:28, marginBottom:12 }},"⊘"),
-                  React.createElement("p",{ style:{ fontSize:15, fontWeight:600, color:"#6c82a0", marginBottom:6 }},
+                  React.createElement("p",{ style:{ fontSize:15, fontWeight:600, color:"#4a4568", marginBottom:6 }},
                     q ? `No results for "${q}"` : `No ${cat} achievements on record yet`
                   ),
                   React.createElement("p",{ style:{ fontSize:13 }},
@@ -1462,7 +1427,7 @@ footer{text-align:center;padding:40px;font-size:12px;color:var(--muted);border-t
 
         /* footer */
         filtered.length > 0 && React.createElement("p",{
-          style:{ fontSize:11, color:"#1e2d3d", textAlign:"center", marginTop:28 }
+          style:{ fontSize:11, color:"#7c7a99", textAlign:"center", marginTop:28 }
         }, `${filtered.length} of ${DATA.length} achievements${cat!=="All"?" in "+cat:""}`)
       );
     }
@@ -1475,8 +1440,8 @@ footer{text-align:center;padding:40px;font-size:12px;color:var(--muted);border-t
 
   <!-- STEM PROJECTS -->
   <section class="section">
-    <div class="s-eye">Science & Engineering</div>
-    <h2 class="s-title">Hands-on projects</h2>
+    <div class="s-eye">Science & Building</div>
+    <h2 class="s-title">Stuff I've built &amp; discovered 🔬</h2>
     <div class="ag">
 
       <div class="ac">
@@ -1505,8 +1470,8 @@ footer{text-align:center;padding:40px;font-size:12px;color:var(--muted);border-t
 
   <!-- INTERESTS -->
   <section class="section">
-    <div class="s-eye">Beyond the scoreboard</div>
-    <h2 class="s-title">What makes Krthin, Krthin</h2>
+    <div class="s-eye">What I love doing</div>
+    <h2 class="s-title">What I love doing</h2>
     <div class="ig">
       <div class="ic"><div class="ic-ico">🧮</div><div><div class="ic-n">Competition math</div><div class="ic-l">RSM · AMC prep · AoPS</div></div></div>
       <div class="ic"><div class="ic-ico">🥋</div><div><div class="ic-n">Oom Yung Doe</div><div class="ic-l">State-level · Korean martial art</div></div></div>
@@ -1514,7 +1479,7 @@ footer{text-align:center;padding:40px;font-size:12px;color:var(--muted);border-t
       <div class="ic"><div class="ic-ico">🎤</div><div><div class="ic-n">Western vocals</div><div class="ic-l">Rockschool Gr 3 · Open Mic · District choir</div></div></div>
       <div class="ic"><div class="ic-ico">♟️</div><div><div class="ic-n">Chess</div><div class="ic-l">School club · weekly</div></div></div>
       <div class="ic"><div class="ic-ico">🌍</div><div><div class="ic-n">Geography</div><div class="ic-l">Geo Bee since 1st grade</div></div></div>
-      <div class="ic"><div class="ic-ico">⚗️</div><div><div class="ic-n">Science & Engineering</div><div class="ic-l">Experiments · building · design</div></div></div>
+      <div class="ic"><div class="ic-ico">⚗️</div><div><div class="ic-n">Science & Building</div><div class="ic-l">Experiments · building · design</div></div></div>
       <div class="ic"><div class="ic-ico">📐</div><div><div class="ic-n">Problem solving</div><div class="ic-l">Olympiad math</div></div></div>
       <div class="ic"><div class="ic-ico">✈️</div><div><div class="ic-n">Travel</div><div class="ic-l">India · cruises · Pacific NW</div></div></div>
     </div>
@@ -1890,7 +1855,7 @@ function addNote(){
     </div>
   </section>
 
-  <footer>Krthin Kothinti · World traveler since age 7 · Updated Sep 2026</footer>
+  <footer>Krthin Kothinti · Age 10 · Redmond, WA 🚀</footer>
 </div>
 
 
