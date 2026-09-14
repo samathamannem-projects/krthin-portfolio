@@ -192,6 +192,8 @@ footer{text-align:center;padding:40px;font-size:12px;color:var(--muted);border-t
   <div class="toggle">
     <button class="tbtn on" onclick="sw('pub',this)">Portfolio</button>
     <button class="tbtn" onclick="sw('fam',this)">Family</button>
+    <button class="tbtn" onclick="sw('travel',this)">Travel</button>
+    <button class="tbtn" onclick="sw('culture',this)">Culture</button>
   </div>
 </nav>
 
@@ -517,5 +519,339 @@ function addNote(){
   inp.value='';el.scrollIntoView({behavior:'smooth',block:'nearest'});
 }
 </script>
+<!-- ═══════════ TRAVEL TAB CONTENT (paste into existing site) ═══════════ -->
+<!-- NAV button to add: <button class="tbtn" onclick="sw('travel',this)">Travel</button>
+    <button class="tbtn" onclick="sw('culture',this)">Culture</button> -->
+
+<div id="page-travel" class="page">
+
+  <section class="hero" style="min-height:auto;padding-bottom:20px;">
+    <div class="hleft">
+      <div class="gtag">Explorer · Age 10</div>
+      <h1 class="hname">The World<em>So Far</em></h1>
+      <p class="hsub">From the rainforests of Costa Rica to the volcanic highlands of the Galápagos — Krthin has explored 5 countries and 10+ US states by age 10.</p>
+      <div class="hstats">
+        <div><div class="snum">5</div><div class="slbl">Countries visited</div></div>
+        <div class="sdiv"></div>
+        <div><div class="snum">10+</div><div class="slbl">US states</div></div>
+        <div class="sdiv"></div>
+        <div><div class="snum">1</div><div class="slbl">Upcoming expedition</div></div>
+      </div>
+    </div>
+    <!-- SVG world map with dots -->
+    <div style="animation:up .7s .15s ease both;display:flex;align-items:center;justify-content:center;">
+      <svg viewBox="0 0 900 450" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:520px;opacity:0.9">
+        <!-- simplified world outline -->
+        <rect width="900" height="450" fill="transparent"/>
+        <!-- grid lines -->
+        <line x1="0" y1="225" x2="900" y2="225" stroke="rgba(0,194,168,0.1)" stroke-width="1"/>
+        <line x1="450" y1="0" x2="450" y2="450" stroke="rgba(0,194,168,0.1)" stroke-width="1"/>
+        <ellipse cx="450" cy="225" rx="440" ry="215" fill="none" stroke="rgba(0,194,168,0.08)" stroke-width="1"/>
+        <!-- North America shape (simplified) -->
+        <path d="M120,80 L200,60 L260,70 L290,90 L310,120 L300,160 L280,200 L260,240 L240,260 L220,290 L200,300 L180,310 L160,320 L140,310 L120,290 L100,260 L85,230 L80,200 L90,160 L100,120 Z" fill="rgba(61,90,128,0.4)" stroke="rgba(0,194,168,0.2)" stroke-width="1"/>
+        <!-- South America -->
+        <path d="M220,310 L260,295 L290,310 L300,340 L295,380 L280,410 L260,430 L240,420 L220,400 L205,370 L200,340 Z" fill="rgba(61,90,128,0.4)" stroke="rgba(0,194,168,0.2)" stroke-width="1"/>
+        <!-- Europe -->
+        <path d="M420,80 L480,75 L510,85 L520,100 L510,115 L490,120 L470,115 L450,120 L440,110 L430,100 Z" fill="rgba(61,90,128,0.4)" stroke="rgba(0,194,168,0.2)" stroke-width="1"/>
+        <!-- Africa -->
+        <path d="M440,140 L490,135 L510,145 L520,170 L515,210 L505,250 L490,280 L470,300 L450,305 L430,295 L415,265 L410,230 L415,195 L425,165 Z" fill="rgba(61,90,128,0.4)" stroke="rgba(0,194,168,0.2)" stroke-width="1"/>
+        <!-- Asia -->
+        <path d="M530,75 L650,65 L720,80 L750,100 L740,130 L710,155 L680,165 L640,170 L600,165 L565,155 L540,140 L525,120 L520,100 Z" fill="rgba(61,90,128,0.4)" stroke="rgba(0,194,168,0.2)" stroke-width="1"/>
+        <!-- India subcontinent -->
+        <path d="M600,155 L630,160 L645,185 L640,210 L625,225 L608,215 L595,195 L590,170 Z" fill="rgba(61,90,128,0.5)" stroke="rgba(0,194,168,0.25)" stroke-width="1"/>
+        <!-- Australia -->
+        <path d="M680,270 L740,260 L770,275 L775,305 L760,330 L730,340 L700,335 L678,315 L672,290 Z" fill="rgba(61,90,128,0.4)" stroke="rgba(0,194,168,0.2)" stroke-width="1"/>
+
+        <!-- VISITED LOCATION DOTS -->
+        <!-- Washington State / Pacific NW (home) -->
+        <circle cx="118" cy="130" r="5" fill="var(--aqua)" opacity="0.9"/>
+        <circle cx="118" cy="130" r="10" fill="var(--aqua)" opacity="0.2"/>
+
+        <!-- Galveston TX / Cozumel Mexico -->
+        <circle cx="195" cy="195" r="5" fill="var(--aqua)" opacity="0.9"/>
+        <circle cx="195" cy="195" r="10" fill="var(--aqua)" opacity="0.2"/>
+        <!-- Cozumel -->
+        <circle cx="207" cy="200" r="4" fill="var(--aqua)" opacity="0.8"/>
+
+        <!-- India (Hyderabad/Bengaluru) -->
+        <circle cx="612" cy="188" r="6" fill="var(--aqua)" opacity="0.9"/>
+        <circle cx="612" cy="188" r="12" fill="var(--aqua)" opacity="0.2"/>
+
+        <!-- Panama City Beach FL -->
+        <circle cx="218" cy="170" r="4" fill="var(--aqua)" opacity="0.9"/>
+        <circle cx="218" cy="170" r="9" fill="var(--aqua)" opacity="0.2"/>
+
+        <!-- Dallas TX -->
+        <circle cx="186" cy="178" r="4" fill="var(--aqua)" opacity="0.9"/>
+
+        <!-- Yellowstone / Montana / Wyoming -->
+        <circle cx="148" cy="135" r="4" fill="var(--aqua)" opacity="0.9"/>
+        <circle cx="148" cy="135" r="9" fill="var(--aqua)" opacity="0.2"/>
+
+
+        <!-- Costa Rica -->
+        <circle cx="200" cy="225" r="4" fill="var(--aqua)" opacity="0.9"/>
+        <circle cx="200" cy="225" r="9" fill="var(--aqua)" opacity="0.2"/>
+
+        <!-- Orlando FL -->
+        <circle cx="222" cy="168" r="4" fill="var(--aqua)" opacity="0.9"/>
+        <!-- Galápagos (upcoming) -->
+        <circle cx="192" cy="248" r="5" fill="#F9A825" opacity="0.9"/>
+        <circle cx="192" cy="248" r="11" fill="#F9A825" opacity="0.25"/>
+
+        <!-- Labels -->
+        <text x="94" y="123" fill="var(--aqua)" font-size="9" font-family="Inter,sans-serif" opacity="0.8">Home</text>
+        <text x="580" y="183" fill="var(--aqua)" font-size="9" font-family="Inter,sans-serif" opacity="0.8">India</text>
+        <text x="162" y="248" fill="#F9A825" font-size="9" font-family="Inter,sans-serif" opacity="0.9">Galápagos ✦</text>
+        <text x="163" y="128" fill="var(--aqua)" font-size="8" font-family="Inter,sans-serif" opacity="0.7">Yellowstone</text>
+
+        <!-- Legend -->
+        <circle cx="30" cy="420" r="5" fill="var(--aqua)"/>
+        <text x="40" y="424" fill="var(--muted)" font-size="10" font-family="Inter,sans-serif">Visited</text>
+        <circle cx="90" cy="420" r="5" fill="#F9A825"/>
+        <text x="100" y="424" fill="var(--muted)" font-size="10" font-family="Inter,sans-serif">Upcoming Dec 2026</text>
+      </svg>
+    </div>
+  </section>
+
+  <!-- DESTINATION CARDS -->
+  <section class="section">
+    <div class="s-eye">International</div>
+    <h2 class="s-title">Across the globe</h2>
+    <div class="ag">
+
+      <div class="ac" style="border-left:3px solid #F9A825;">
+        <div class="ac-ico">🇪🇨</div>
+        <div class="ac-cat">Coming up · Dec 2026</div>
+        <div class="ac-t">Galápagos Islands, Ecuador</div>
+        <div class="ac-d">Land-based island-hopping across Baltra, Santa Cruz, and San Cristóbal — the living laboratory that inspired Darwin's theory of evolution. Ferry crossings between islands booked through Galápagos Path. One of the most biodiverse and remote destinations on Earth.</div>
+        <div style="margin-top:10px;font-size:11px;font-weight:600;color:#F9A825;background:rgba(249,168,37,0.1);border:1px solid rgba(249,168,37,0.2);border-radius:40px;padding:3px 10px;display:inline-block;">Departing Dec 19, 2026</div>
+      </div>
+
+
+      <div class="ac">
+        <div class="ac-ico">🇨🇷</div>
+        <div class="ac-cat">Apr 2023</div>
+        <div class="ac-t">Costa Rica</div>
+        <div class="ac-d">One of the world's great biodiversity hotspots — rainforests, volcanoes, wildlife, and some of the most dramatic natural landscapes in Central America. Age 6, and already crossing borders to explore the natural world.</div>
+      </div>
+
+      <div class="ac">
+        <div class="ac-ico">🇲🇽</div>
+        <div class="ac-cat">Nov 2023</div>
+        <div class="ac-t">Cozumel, Mexico</div>
+        <div class="ac-d">Caribbean cruise aboard Royal Caribbean departing Galveston, TX — with Cozumel as the port of call. Crystal-clear Caribbean waters, coral reefs, and a first taste of international travel by sea. Age 7.</div>
+      </div>
+
+      <div class="ac">
+        <div class="ac-ico">🇮🇳</div>
+        <div class="ac-cat">Dec 2023 · Mar 2025 · Aug 2025</div>
+        <div class="ac-t">India — Hyderabad & Bengaluru</div>
+        <div class="ac-d">Three extended visits to India across two years — all-month stays connecting with family roots. Hyderabad (family hometown) and Bengaluru. Traveled IndiGo domestically between cities. Maintains a strong connection to Indian culture alongside life in Redmond.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="s-eye">United States</div>
+    <h2 class="s-title">Exploring America</h2>
+    <div class="ag">
+
+      <div class="ac">
+        <div class="ac-ico">🏔️</div>
+        <div class="ac-cat">Jun 2026</div>
+        <div class="ac-t">Yellowstone & Grand Teton, Wyoming</div>
+        <div class="ac-d">Family road trip through two of America's most iconic national parks — Old Faithful, the Grand Prismatic Spring, and the dramatic Teton Range. Combined with a competitive swim meet in Missoula, MT, making it equal parts adventure and competition.</div>
+      </div>
+
+      <div class="ac">
+        <div class="ac-ico">🏊</div>
+        <div class="ac-cat">Jun 2026</div>
+        <div class="ac-t">Missoula, Montana</div>
+        <div class="ac-d">Traveled to Missoula for a competitive swim meet — combining serious athletic competition with the natural beauty of western Montana. Part of the same June 2026 road trip through MT, ID, and WY.</div>
+      </div>
+
+      <div class="ac">
+        <div class="ac-ico">🌊</div>
+        <div class="ac-cat">Dec 2025</div>
+        <div class="ac-t">Panama City Beach, Florida</div>
+        <div class="ac-d">Holiday trip to the Gulf Coast — the famous white sand beaches and emerald green waters of the Florida Panhandle. Winter sun and warm water, a contrast to Pacific Northwest winters.</div>
+      </div>
+
+
+      <div class="ac">
+        <div class="ac-ico">🎢</div>
+        <div class="ac-cat">Dec 2024</div>
+        <div class="ac-t">Orlando, Florida — Walt Disney World</div>
+        <div class="ac-d">Holiday trip to the most visited theme park on Earth — the magic of Walt Disney World at Christmas, one of the best times of year to visit. Age 8.</div>
+      </div>
+
+      <div class="ac">
+        <div class="ac-ico">✈️</div>
+        <div class="ac-cat">Apr 2026</div>
+        <div class="ac-t">Dallas / Fort Worth, Texas</div>
+        <div class="ac-d">Krthin had his own boarding pass for this trip — a milestone in independence. The Dallas–Fort Worth metroplex, one of America's largest urban areas.</div>
+      </div>
+
+      <div class="ac">
+        <div class="ac-ico">🛳️</div>
+        <div class="ac-cat">Nov 2023</div>
+        <div class="ac-t">Galveston, Texas</div>
+        <div class="ac-d">Departure port for the Royal Caribbean cruise to Cozumel. Galveston Island — a historic Gulf Coast city and cruise hub.</div>
+      </div>
+
+      <div class="ac">
+        <div class="ac-ico">🏠</div>
+        <div class="ac-cat">Home base</div>
+        <div class="ac-t">Redmond, Washington</div>
+        <div class="ac-d">Home in the Pacific Northwest — minutes from Lake Washington, the Cascade foothills, and the tech corridor of the Eastside. Exploring the PNW is a constant backdrop to everything else.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- TRAVEL STATS BAR -->
+  <section class="section">
+    <div class="s-eye">By the numbers</div>
+    <h2 class="s-title">Travel at a glance</h2>
+    <div class="krow" style="margin-bottom:0;">
+      <div class="kc"><div class="kl">Countries</div><div class="kv">5</div><div class="ks">USA · Mexico · Costa Rica · India · Ecuador (Dec)</div></div>
+      <div class="kc"><div class="kl">US States</div><div class="kv">10+</div><div class="ks">WA · TX · FL · WY · MT · ID · and more</div></div>
+      <div class="kc"><div class="kl">India visits</div><div class="kv">3</div><div class="ks">Dec '23 · Mar '25 · Aug '25</div></div>
+      <div class="kc"><div class="kl">National Parks</div><div class="kv">2</div><div class="ks">Yellowstone · Grand Teton</div></div>
+      <div class="kc"><div class="kl">Cruises</div><div class="kv">1</div><div class="ks">Royal Caribbean · Cozumel</div></div>
+      <div class="kc"><div class="kl">Next destination</div><div class="kv">🇪🇨</div><div class="ks">Galápagos · Dec 19, 2026</div></div>
+    </div>
+  </section>
+
+  <footer>Krthin Kothinti · World traveler since age 7 · Updated Sep 2026</footer>
+</div>
+
+
+<!-- ═══════════ CULTURE PAGE ═══════════ -->
+<div id="page-culture" class="page">
+
+  <section class="hero" style="min-height:auto;padding-bottom:20px;">
+    <div class="hleft">
+      <div class="gtag">Telugu Heritage · Redmond, WA</div>
+      <h1 class="hname">Roots &<em>Traditions</em></h1>
+      <p class="hsub">Growing up between two worlds — the Pacific Northwest and a rich Telugu heritage — Krthin celebrates the festivals, rituals, and traditions that connect family across generations and continents.</p>
+      <div class="hstats">
+        <div><div class="snum">6</div><div class="slbl">Festivals celebrated</div></div>
+        <div class="sdiv"></div>
+        <div><div class="snum">Telugu</div><div class="slbl">Cultural roots</div></div>
+        <div class="sdiv"></div>
+        <div><div class="snum">3</div><div class="slbl">India visits</div></div>
+      </div>
+    </div>
+    <div style="animation:up .7s .15s ease both;display:flex;flex-direction:column;gap:13px;">
+      <div class="pil">
+        <div class="pil-ic">🪔</div>
+        <div class="pil-inf"><div class="pil-t">Diwali</div><div class="pil-d">Festival of Lights · the biggest celebration of the year</div></div>
+        <div class="badge">Major</div>
+      </div>
+      <div class="pil">
+        <div class="pil-ic">🌸</div>
+        <div class="pil-inf"><div class="pil-t">Bathukamma</div><div class="pil-d">Telangana flower festival · women & girls, floral stacks</div></div>
+        <div class="badge">Telugu</div>
+      </div>
+      <div class="pil">
+        <div class="pil-ic">🔥</div>
+        <div class="pil-inf"><div class="pil-t">Bhogi</div><div class="pil-d">First day of Makar Sankranti · bonfire tradition</div></div>
+        <div class="badge">Telugu</div>
+      </div>
+      <div class="pil">
+        <div class="pil-ic">🪇</div>
+        <div class="pil-inf"><div class="pil-t">Dandiya</div><div class="pil-d">Navratri stick dance · energy and rhythm</div></div>
+        <div class="badge">Navratri</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FESTIVAL CARDS -->
+  <section class="section">
+    <div class="s-eye">Celebrations</div>
+    <h2 class="s-title">Festivals & traditions</h2>
+    <div class="ag">
+
+      <div class="ac" style="border-left:3px solid #F9A825;">
+        <div class="ac-ico">🪔</div>
+        <div class="ac-cat">October · Major festival</div>
+        <div class="ac-t">Diwali — Festival of Lights</div>
+        <div class="ac-d">The biggest celebration of the year for the family — the Hindu festival of lights marking the triumph of light over darkness. Diyas, fireworks, sweets, and gatherings with family and friends. Celebrated with the full energy and joy it deserves every October.</div>
+      </div>
+
+      <div class="ac">
+        <div class="ac-ico">🌸</div>
+        <div class="ac-cat">September · Telangana tradition</div>
+        <div class="ac-t">Bathukamma — Floral Festival of Telangana</div>
+        <div class="ac-d">A uniquely Telangana festival where flowers are stacked into colorful cone-shaped arrangements and women sing and dance around them before immersing them in water. A celebration of nature, womanhood, and Telugu cultural identity — one of the most visually beautiful traditions in South India.</div>
+      </div>
+
+      <div class="ac">
+        <div class="ac-ico">🔥</div>
+        <div class="ac-cat">January · Sankranti season</div>
+        <div class="ac-t">Bhogi — First Day of Sankranti</div>
+        <div class="ac-d">The bonfire festival that opens the Makar Sankranti harvest celebration — old and unused items are burned in a bonfire at dawn, symbolizing letting go of the past and welcoming new beginnings. A deeply rooted Andhra and Telangana tradition celebrated with family.</div>
+      </div>
+
+      <div class="ac">
+        <div class="ac-ico">🐘</div>
+        <div class="ac-cat">August · 10-day celebration</div>
+        <div class="ac-t">Ganesh Chaturthi</div>
+        <div class="ac-d">The ten-day celebration welcoming Lord Ganesha — the remover of obstacles and patron of new beginnings. Prayers, modaks, and community gatherings mark the festival, which culminates in the immersion of Ganesha idols. A festival Krthin has grown up celebrating every year.</div>
+      </div>
+
+      <div class="ac">
+        <div class="ac-ico">🪇</div>
+        <div class="ac-cat">October · Navratri</div>
+        <div class="ac-t">Dandiya — Navratri Dance</div>
+        <div class="ac-d">The energetic stick dance of Navratri — colorful costumes, rhythmic music, and the fast-paced crossing of dandiya sticks in pairs and circles. Nine nights of dance and devotion honoring the goddess Durga. Krthin joins family and friends in the festivities every year.</div>
+      </div>
+
+      <div class="ac">
+        <div class="ac-ico">🧵</div>
+        <div class="ac-cat">August · Siblings tradition</div>
+        <div class="ac-t">Rakhi — Raksha Bandhan</div>
+        <div class="ac-d">The festival of the bond between siblings — sisters tie a protective thread (rakhi) on their brother's wrist, and brothers promise to protect and care for their sisters. A meaningful annual ritual between Krthin and his sister Ila that celebrates their bond.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- WHAT CULTURE MEANS -->
+  <section class="section">
+    <div class="s-eye">Identity</div>
+    <h2 class="s-title">Two worlds, one identity</h2>
+    <div class="ag" style="grid-template-columns:repeat(auto-fill,minmax(260px,1fr));">
+
+      <div class="ac">
+        <div class="ac-ico">🗣️</div>
+        <div class="ac-cat">Language</div>
+        <div class="ac-t">Telugu heritage</div>
+        <div class="ac-d">The family's roots are in Telangana and Andhra Pradesh — the heartland of Telugu culture, one of India's classical languages with a rich literary and artistic tradition. The festivals Krthin celebrates are distinctly Telugu in character: Bathukamma, Bhogi, and Ugadi are not pan-Indian — they are Telugu.</div>
+      </div>
+
+      <div class="ac">
+        <div class="ac-ico">🇮🇳</div>
+        <div class="ac-cat">Connection</div>
+        <div class="ac-t">Three visits to India by age 10</div>
+        <div class="ac-d">Krthin has visited India three times — December 2023, March 2025, and August 2025 — spending extended time with family in Hyderabad and Bengaluru. The festivals he celebrates at home in Redmond are the same ones he experiences in their full form during these visits.</div>
+      </div>
+
+      <div class="ac">
+        <div class="ac-ico">🌏</div>
+        <div class="ac-cat">Balance</div>
+        <div class="ac-t">Pacific Northwest & South India</div>
+        <div class="ac-d">Krthin moves naturally between two cultural worlds — competing in national math tournaments and swimming at AG1 level in Washington, while lighting diyas at Diwali and dancing Dandiya with family each Navratri. Neither world is a performance; both are simply home.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>Krthin Kothinti · Telugu heritage · Redmond, WA · Updated Sep 2026</footer>
+</div>
+
 </body>
 </html>
