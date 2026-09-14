@@ -170,7 +170,88 @@ footer{text-align:center;padding:40px;font-size:12px;color:var(--muted);border-t
 .ab{padding:8px 14px;background:var(--aqua);color:var(--navy);border:none;border-radius:var(--r-sm);font-weight:600;font-size:12px;cursor:pointer;font-family:'Inter',sans-serif}
 .ab:hover{background:var(--aqua-dim)}
 
-@media(max-width:860px){
+
+  /* ── PIN OVERLAY ── */
+  .pin-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background: rgba(13,27,42,0.92);
+    backdrop-filter: blur(16px);
+    align-items: center;
+    justify-content: center;
+  }
+  .pin-overlay.show { display: flex; }
+  .pin-box {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg, 20px);
+    padding: 40px 36px;
+    width: 340px;
+    text-align: center;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+  }
+  .pin-icon { font-size: 36px; margin-bottom: 16px; }
+  .pin-title {
+    font-family: 'Outfit', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--cream);
+    margin-bottom: 6px;
+  }
+  .pin-sub { font-size: 13px; color: var(--muted); margin-bottom: 24px; }
+  .pin-input {
+    width: 100%;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--cream);
+    font-family: 'Inter', sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    padding: 12px 16px;
+    text-align: center;
+    outline: none;
+    transition: border-color 0.2s;
+    margin-bottom: 16px;
+  }
+  .pin-input:focus { border-color: var(--aqua); }
+  .pin-input.error { border-color: #F87171; animation: shake 0.3s ease; }
+  @keyframes shake {
+    0%,100%{transform:translateX(0)}
+    25%{transform:translateX(-6px)}
+    75%{transform:translateX(6px)}
+  }
+  .pin-btn {
+    width: 100%;
+    padding: 12px;
+    background: var(--aqua);
+    color: var(--navy);
+    border: none;
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-bottom: 10px;
+  }
+  .pin-btn:hover { background: var(--aqua-dim); }
+  .pin-cancel {
+    font-size: 12px;
+    color: var(--muted);
+    cursor: pointer;
+    text-decoration: underline;
+    background: none;
+    border: none;
+    font-family: 'Inter', sans-serif;
+  }
+  .pin-cancel:hover { color: var(--cream); }
+  .pin-error { font-size: 12px; color: #F87171; margin-top: 8px; min-height: 16px; }
+
+  @media(max-width:860px){
   nav{padding:14px 20px}
   .hero{grid-template-columns:1fr;padding:40px 24px;gap:40px;min-height:auto}
   .section{padding:60px 24px}
@@ -191,7 +272,7 @@ footer{text-align:center;padding:40px;font-size:12px;color:var(--muted);border-t
   <div class="logo">K<span>rthin Kothinti</span></div>
   <div class="toggle">
     <button class="tbtn on" onclick="sw('pub',this)">Portfolio</button>
-    <button class="tbtn" onclick="sw('fam',this)">Family</button>
+    <button class="tbtn" onclick="promptFamily(this)">Family 🔒</button>
     <button class="tbtn" onclick="sw('travel',this)">Travel</button>
     <button class="tbtn" onclick="sw('culture',this)">Culture</button>
   </div>
@@ -543,12 +624,45 @@ footer{text-align:center;padding:40px;font-size:12px;color:var(--muted);border-t
 </div>
 
 <script>
+// PIN for family view — change this to your preferred PIN
+var FAMILY_PIN = '2016';
+var _famBtn = null;
+
 function sw(v,btn){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
   document.querySelectorAll('.tbtn').forEach(b=>b.classList.remove('on'));
   document.getElementById('page-'+v).classList.add('on');
-  btn.classList.add('on');
+  if(btn) btn.classList.add('on');
   window.scrollTo({top:0,behavior:'smooth'});
+}
+function promptFamily(btn){
+  // Already unlocked this session?
+  if(sessionStorage.getItem('fam_unlocked')==='1'){
+    sw('fam',btn); return;
+  }
+  _famBtn = btn;
+  var overlay = document.getElementById('pin-overlay');
+  overlay.classList.add('show');
+  var inp = document.getElementById('pin-input');
+  inp.value=''; inp.classList.remove('error');
+  document.getElementById('pin-error').textContent='';
+  setTimeout(()=>inp.focus(),100);
+}
+function checkPin(){
+  var inp = document.getElementById('pin-input');
+  if(inp.value === FAMILY_PIN){
+    sessionStorage.setItem('fam_unlocked','1');
+    closePin();
+    sw('fam', _famBtn);
+  } else {
+    inp.classList.add('error');
+    document.getElementById('pin-error').textContent = 'Incorrect PIN. Try again.';
+    inp.value='';
+    setTimeout(()=>{ inp.classList.remove('error'); inp.focus(); }, 600);
+  }
+}
+function closePin(){
+  document.getElementById('pin-overlay').classList.remove('show');
 }
 (function(){
   const el=document.getElementById('ld');
@@ -898,6 +1012,28 @@ function addNote(){
   </section>
 
   <footer>Krthin Kothinti · Telugu heritage · Redmond, WA · Updated Sep 2026</footer>
+</div>
+
+
+<!-- ── PIN OVERLAY ── -->
+<div class="pin-overlay" id="pin-overlay">
+  <div class="pin-box">
+    <div class="pin-icon">🔒</div>
+    <div class="pin-title">Family View</div>
+    <div class="pin-sub">Enter the family PIN to access the dashboard</div>
+    <input
+      class="pin-input"
+      id="pin-input"
+      type="password"
+      maxlength="6"
+      placeholder="· · · ·"
+      onkeydown="if(event.key==='Enter')checkPin()"
+      autocomplete="off"
+    />
+    <button class="pin-btn" onclick="checkPin()">Unlock</button>
+    <div class="pin-error" id="pin-error"></div>
+    <button class="pin-cancel" onclick="closePin()">Cancel</button>
+  </div>
 </div>
 
 </body>
