@@ -751,74 +751,706 @@ footer{text-align:center;padding:40px;font-size:12px;color:var(--muted);border-t
   </section>
 
   <!-- JOURNEY TIMELINE -->
-  <section class="section">
-    <div class="s-eye">Journey</div>
-    <h2 class="s-title">Year by year</h2>
-    <div class="timeline">
-
-      <div class="tl-item">
-        <div class="tl-yr">2022–23 · Grade 1</div>
-        <div class="tl-card">
-          <div class="tl-t">Passport Club Geography Bee — 🏆 1st Place + National Qualifier</div>
-          <div class="tl-d">Competed in the Clara Barton PTSA Passport Club Geo Bee on June 16, 2023, placed in Level 3 group alongside 3rd–5th graders. Five-round buzzer competition with trophies and medals. The organizer noted him specifically in the participant list at "Krthin K · Grade 1 · Level 3."</div>
-        </div>
-      </div>
-
-      <div class="tl-item">
-        <div class="tl-yr">2023–24 · Grade 2</div>
-        <div class="tl-card">
-          <div class="tl-t">RSM Redmond · Chess (weekly) · Geo Bee practice · Swimming begins · Oom Yung Doe begins</div>
-          <div class="tl-d">Enrolled in RSM Redmond competition math. Attended chess at Clara Barton PTSA every Thursday. Continued Geo Bee practice sessions through December 2023. Began private swimming lessons with Coach Lisa Worthington at Eastside Swim School. Enrolled in Oom Yung Doe Kirkland alongside sister Ila. Family visited India in December.</div>
-        </div>
-      </div>
-
-      <div class="tl-item">
-        <div class="tl-yr">2024–25 · Grade 3</div>
-        <div class="tl-card">
-          <div class="tl-t">Math Kangaroo #14 nationally · Noetic score 95 · District Choir · Rockschool Vocals Gr 3 · Quest program</div>
-          <div class="tl-d">Scored 81 in Math Kangaroo, achieving National Rank #14 and State Rank #10 (WA) — results forwarded to RSM who invited him to their award ceremony. Scored 95 in Noetic Fall 2025, helping Horace Mann earn a Team Achievement Award. Promoted from Rockschool Vocals Debut to Grade 3 (intermediate) at Spardha in December 2025. Selected for Horace Mann Quest 4/5 highly capable program.</div>
-        </div>
-      </div>
-
-      <div class="tl-item">
-        <div class="tl-yr">2025–26 · Grade 4 (current)</div>
-        <div class="tl-card">
-          <div class="tl-t">Top 20 Math Kangaroo nationally · 84th percentile MCT · White B Excellence Award · RSM 5_3G · Spardha Open Mic</div>
-          <div class="tl-d">Placed Top 20 nationwide in Math Kangaroo 2026 (Grade 4 level), earning an invitation to an exclusive workshop with professor Po-Shen Loh. <strong>183/219 · 84th percentile nationally.</strong> Level 3, Division I. Selected for Wave Aquatics White B Excellence Award by Coach Michael. Advanced to RSM's hardest track (5_3G) with 106/100 on first homework. Performed at Spardha Open Mic on a global virtual stage. Enrolled in Horace Mann Chess Club and PTSA Math Club. Turned 10 — celebrated with laser tag party at LazerX Arena Kirkland.</div>
-        </div>
-      </div>
-
-    </div>
+  <section class="section" style="padding-top:0;">
+    <div id="timeline-root"></div>
   </section>
+
+  <script type="text/babel" data-presets="react">
+  (() => {
+    const { useState, useRef, useEffect } = React;
+    const { motion, AnimatePresence } = window.Motion;
+
+    /* ── DATA ── */
+    const GRADES = [
+      {
+        id: "g1",
+        grade: "Grade 1",
+        year: "2022–23",
+        tag: "current",
+        color: "#2dd4bf",
+        highlights: [
+          "1st place, Geography Bee Level 3 — beat 3rd–5th graders",
+          "Qualified for IAC National Geography Bee (Orlando FL)",
+          "First year in competitive academics",
+        ],
+        summary: "Won the Clara Barton Passport Club Geography Bee in June 2023 — competing in Level 3 against 3rd, 4th, and 5th graders as a 1st grader. Took home the trophy and a medal. Result qualified him for the International Academic Competitions National Geography Bee (Elementary & Middle School National Championships, Orlando FL).",
+        story: "Competed in the Clara Barton PTSA Passport Club Geo Bee on June 16, 2023 — placed 1st in Level 3 alongside students up to 5th grade in a five-round buzzer competition. The organizer specifically noted him: 'Krthin K · Grade 1 · Level 3.' He took home the trophy and a medal. His result qualified him for the IAC National Geography Bee National Championships in Orlando FL — a significant recognition at age 6.",
+      },
+      {
+        id: "g2",
+        grade: "Grade 2",
+        year: "2023–24",
+        color: "#818cf8",
+        highlights: [
+          "Enrolled in RSM Redmond — competition math track",
+          "Weekly chess at Clara Barton PTSA every Thursday",
+          "Enrolled in Oom Yung Doe Kirkland (with sister Ila)",
+          "Began competitive swimming at Eastside Swim School",
+          "Sodium acetate science fair: full experimental design",
+          "India trip all of December",
+        ],
+        summary: "The year everything started at once — RSM math, chess, martial arts, and swimming all beginning within months of each other. Foundation year for every discipline he now competes in.",
+        story: "Enrolled in RSM Redmond competition math — the same programme he's still in today at the hardest level. Attended chess at Clara Barton PTSA every Thursday. Started Oom Yung Doe Kirkland alongside sister Ila — the martial arts school he's been training at for two years. Began private swimming lessons with Coach Lisa Worthington at Eastside Swim School. Presented a sodium acetate crystallization science fair project: 'How Does the Temperature of Sodium Acetate Affect the Size of Crystallization?' — a full experimental design with hypothesis, variables, and tri-fold board. Family visited India all of December, returning in January.",
+      },
+      {
+        id: "g3",
+        grade: "Grade 3",
+        year: "2024–25",
+        color: "#f472b6",
+        highlights: [
+          "Math Kangaroo: #14 nationally, #10 in WA — score 81",
+          "Noetic Learning: score 95 (1 of 33,223 participants)",
+          "Rockschool Vocals: Debut → Grade 3 in one cycle",
+          "Selected for LWSD District Choral Performance",
+          "Accepted into Quest 4/5 highly capable program",
+          "Catapult engineering challenge — Grade 3",
+          "Emailed Ms. McCreary to present bonus projects (self-initiated)",
+        ],
+        summary: "The breakout year — national math recognition, vocal promotion, district choir selection, and acceptance into Quest. Five separate domains producing results at the same time.",
+        story: "Scored 81 in Math Kangaroo, achieving National Rank #14 and State Rank #10 in WA — RSM WA Competition Team invited him to their award ceremony. Scored 95 in Noetic Learning Math Contest (Fall 2025), contributing to Horace Mann's Team Achievement Award across 33,223 national participants. Promoted from Rockschool Vocals Debut to Grade 3 (internationally accredited, intermediate level) at Spardha in December 2025 — skipping the intermediate steps. Selected to represent Horace Mann at the LWSD District Choral Performance. Accepted into the Quest 4/5 highly capable program. Built a working catapult from popsicle sticks, rubber bands, and cardboard for a Grade 3 engineering challenge — designed to launch an eraser. Self-initiated: emailed Ms. McCreary directly to request presenting his bonus projects in Presentation Club.",
+      },
+      {
+        id: "g4",
+        grade: "Grade 4",
+        year: "2025–26",
+        color: "#fbbf24",
+        badge: "Current year",
+        highlights: [
+          "IMC Gold Medal — RSM Minds of the Future showcase",
+          "Math Kangaroo: Top 20 nationwide, grade level",
+          "MCT: 84th percentile nationally (183/219)",
+          "Wave Aquatics White B Excellence Award (hand-selected)",
+          "RSM class 5_3G — hardest track, 106/100 HW1",
+          "Oom Yung Doe Bronze Medal — Spring Tournament 2026",
+          "Spardha Open Mic — global virtual stage, Sep 2026",
+          "Turned 10 — laser tag at LazerX Arena Kirkland",
+        ],
+        summary: "The biggest year yet — IMC Gold Medal, Top 20 Math Kangaroo nationally, Excellence Award in swimming, Bronze Medal in martial arts, and a global musical performance. All at age 9–10.",
+        story: "Awarded the Gold Medal at the International Math Contest (IMC) 2026 — recognized in RSM's 'Minds of the Future' showcase at the year-end ceremony. Placed Top 20 nationwide in Math Kangaroo 2026 (Grade 4 level), earning an exclusive invitation to a workshop with Professor Po-Shen Loh. Scored 183/219 (84th percentile nationally) at Level 3, Division I in the National Math Challenge Tournament. Hand-selected by Coach Michael for the Wave Aquatics White B Excellence Award at the 2026 seasonal banquet — 'consistently brings their best in all aspects of the sport.' Advanced to RSM's hardest track (5_3G) with 106/100 on the first homework of the year. Won a Local Bronze Medal at the Oom Yung Doe Spring Tournament 2026 performing staff weapon forms. Performed at Spardha Open Mic on a global virtual stage in September 2026. Enrolled in Horace Mann Chess Club and PTSA Math Club. Turned 10 on September 3 — celebrated with a laser tag birthday party at LazerX Arena Kirkland.",
+      },
+    ];
+
+    /* ── CARD ── */
+    function GradeCard({ item, index }) {
+      const [open, setOpen] = useState(false);
+      const [expanded, setExpanded] = useState(false);
+      const bodyRef = useRef(null);
+
+      // Default open grade 4 (current)
+      useEffect(() => {
+        if (item.badge) setOpen(true);
+      }, []);
+
+      return React.createElement("div", {
+        style: {
+          display: "flex", gap: 0, position: "relative",
+          animation: `tlUp 0.5s ${index * 0.1}s ease both`,
+        }
+      },
+        /* ── RAIL COLUMN ── */
+        React.createElement("div", {
+          style: {
+            display: "flex", flexDirection: "column", alignItems: "center",
+            width: 40, flexShrink: 0, paddingTop: 4,
+          }
+        },
+          /* Node */
+          React.createElement("div", {
+            onClick: () => setOpen(o => !o),
+            style: {
+              width: open ? 14 : 10,
+              height: open ? 14 : 10,
+              borderRadius: "50%",
+              background: open ? item.color : "#1a2d42",
+              border: `2px solid ${item.color}`,
+              boxShadow: open ? `0 0 12px ${item.color}60` : "none",
+              transition: "all 0.25s ease",
+              cursor: "pointer",
+              flexShrink: 0,
+              zIndex: 2,
+            }
+          }),
+          /* Rail segment */
+          index < GRADES.length - 1 && React.createElement("div", {
+            style: {
+              flex: 1, width: 1,
+              background: `linear-gradient(180deg, ${item.color}50 0%, #1a2d4230 100%)`,
+              marginTop: 6,
+              minHeight: 40,
+            }
+          })
+        ),
+
+        /* ── CARD COLUMN ── */
+        React.createElement("div", {
+          style: { flex: 1, paddingBottom: index < GRADES.length - 1 ? 20 : 0, paddingLeft: 8 }
+        },
+          /* Header — always visible */
+          React.createElement("div", {
+            onClick: () => setOpen(o => !o),
+            style: {
+              display: "flex", alignItems: "flex-start",
+              justifyContent: "space-between", gap: 12,
+              cursor: "pointer", marginBottom: open ? 12 : 0,
+              userSelect: "none",
+            }
+          },
+            React.createElement("div", null,
+              React.createElement("div", {
+                style: {
+                  display: "flex", alignItems: "center", gap: 8, marginBottom: 4
+                }
+              },
+                React.createElement("span", {
+                  style: {
+                    fontSize: 11, fontWeight: 700,
+                    color: item.color, letterSpacing: "0.02em",
+                  }
+                }, item.year),
+                item.badge && React.createElement("span", {
+                  style: {
+                    fontSize: 10, fontWeight: 600,
+                    padding: "2px 8px", borderRadius: 40,
+                    color: item.color,
+                    background: `${item.color}15`,
+                    border: `1px solid ${item.color}30`,
+                  }
+                }, item.badge)
+              ),
+              React.createElement("h3", {
+                style: {
+                  fontSize: 17, fontWeight: 700,
+                  color: "#f1f5f9", letterSpacing: "-0.02em",
+                  lineHeight: 1.2, margin: 0,
+                }
+              }, item.grade)
+            ),
+            /* Chevron */
+            React.createElement("div", {
+              style: {
+                color: item.color, fontSize: 18, lineHeight: 1,
+                transform: open ? "rotate(180deg)" : "rotate(0deg)",
+                transition: "transform 0.22s ease",
+                marginTop: 2, flexShrink: 0, opacity: 0.7,
+              }
+            }, "⌃")
+          ),
+
+          /* Expandable body */
+          React.createElement(AnimatePresence, { initial: false },
+            open && React.createElement(motion.div, {
+              key: "body",
+              initial: { height: 0, opacity: 0 },
+              animate: { height: "auto", opacity: 1 },
+              exit: { height: 0, opacity: 0 },
+              transition: { duration: 0.28, ease: [0.25, 0.46, 0.45, 0.94] },
+              style: { overflow: "hidden" },
+            },
+              React.createElement("div", {
+                style: {
+                  background: "linear-gradient(145deg, #0c1829 0%, #070e1a 100%)",
+                  border: `1px solid #1a2d42`,
+                  borderLeft: `3px solid ${item.color}`,
+                  borderRadius: 14,
+                  padding: "18px 20px",
+                }
+              },
+                /* Highlights */
+                React.createElement("div", {
+                  style: { display: "flex", flexDirection: "column", gap: 7, marginBottom: 16 }
+                },
+                  item.highlights.map((h, i) =>
+                    React.createElement("div", {
+                      key: i,
+                      style: { display: "flex", alignItems: "flex-start", gap: 8 }
+                    },
+                      React.createElement("div", {
+                        style: {
+                          width: 5, height: 5, borderRadius: "50%",
+                          background: item.color, flexShrink: 0, marginTop: 6,
+                        }
+                      }),
+                      React.createElement("span", {
+                        style: { fontSize: 13, color: "#94a3b8", lineHeight: 1.5 }
+                      }, h)
+                    )
+                  )
+                ),
+
+                /* Divider */
+                React.createElement("div", {
+                  style: {
+                    height: 1, background: "#1a2d42", margin: "14px 0"
+                  }
+                }),
+
+                /* Summary or Full Story */
+                React.createElement(AnimatePresence, { mode: "wait" },
+                  React.createElement(motion.p, {
+                    key: expanded ? "story" : "summary",
+                    initial: { opacity: 0, y: 6 },
+                    animate: { opacity: 1, y: 0 },
+                    exit: { opacity: 0, y: -4 },
+                    transition: { duration: 0.2 },
+                    style: {
+                      fontSize: 13, color: expanded ? "#7a98b4" : "#4a6282",
+                      lineHeight: 1.75, marginBottom: 12,
+                    }
+                  }, expanded ? item.story : item.summary)
+                ),
+
+                /* Toggle */
+                React.createElement("button", {
+                  onClick: e => { e.stopPropagation(); setExpanded(x => !x); },
+                  style: {
+                    background: "none", border: `1px solid ${item.color}30`,
+                    borderRadius: 40, padding: "5px 14px",
+                    fontSize: 12, fontWeight: 600,
+                    color: item.color, cursor: "pointer",
+                    display: "inline-flex", alignItems: "center", gap: 5,
+                    transition: "background 0.15s, border-color 0.15s",
+                    fontFamily: "inherit",
+                  },
+                  onMouseEnter: e => {
+                    e.target.style.background = `${item.color}12`;
+                    e.target.style.borderColor = `${item.color}60`;
+                  },
+                  onMouseLeave: e => {
+                    e.target.style.background = "none";
+                    e.target.style.borderColor = `${item.color}30`;
+                  },
+                },
+                  expanded ? "← Summary" : "Read full story",
+                  React.createElement("span", { style: { fontSize: 10, opacity: 0.7 }},
+                    expanded ? "" : "→"
+                  )
+                )
+              )
+            )
+          )
+        )
+      );
+    }
+
+    /* ── MAIN ── */
+    function Timeline() {
+      return React.createElement("div", {
+        style: { fontFamily: "'Inter', system-ui, sans-serif" }
+      },
+        React.createElement("style", null, `
+          @keyframes tlUp {
+            from { opacity: 0; transform: translateY(14px); }
+            to   { opacity: 1; transform: translateY(0); }
+          }
+        `),
+        React.createElement("div", { className: "s-eye" }, "Journey"),
+        React.createElement("h2", { className: "s-title" }, "Year by year"),
+        React.createElement("div", {
+          style: { marginTop: 28, display: "flex", flexDirection: "column" }
+        },
+          GRADES.map((item, i) =>
+            React.createElement(GradeCard, { key: item.id, item, index: i })
+          )
+        )
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById("timeline-root"));
+    root.render(React.createElement(Timeline));
+  })();
+  </script>
+
+
 
   <!-- ACHIEVEMENTS -->
-  <section class="section">
-    <div class="s-eye">Programs & recognition</div>
-    <h2 class="s-title">Achievements across every arena</h2>
-    <div class="ag">
-      <div class="ac" style="border-left:3px solid #F9A825;">
-        <div class="ac-ico">🥇</div>
-        <div class="ac-cat">Mathematics · International · 2026</div>
-        <div class="ac-t">IMC Gold Medal — RSM Minds of the Future</div>
-        <div class="ac-d"><strong>Gold Medal · IMC 2026 · Grade 4.</strong> Top performer across RSM's global student network. Featured in RSM's "Minds of the Future" showcase at the annual awards ceremony — the highest recognition RSM awards its students.</div>
-      </div>
-      <div class="ac"><div class="ac-ico">🦘</div><div class="ac-cat">Mathematics · Competition</div><div class="ac-t">Math Kangaroo — Top 20 nationally (2026), #14 nationally (2025)</div><div class="ac-d"><strong>#14 nationally (2025) · Top 20 nationally (2026).</strong> Score 81 in 2025 · 6M+ global participants. 2026: exclusive invitation to workshop with Prof. Po-Shen Loh.</div></div>
-      <div class="ac"><div class="ac-ico">🏆</div><div class="ac-cat">Mathematics · Competition</div><div class="ac-t">National Math Challenge Tournament — 84th percentile (2026)</div><div class="ac-d">Scored 183/219 at Level 3, Division I in the National MCT, hosted at Clara Barton Elementary by Ellipsis Academy. 84th percentile places him well above the majority of national participants.</div></div>
-      <div class="ac"><div class="ac-ico">📊</div><div class="ac-cat">Mathematics · Competition</div><div class="ac-t">Noetic Learning Math Contest — Score 95, Fall 2025</div><div class="ac-d">Competed in the national Noetic contest (33,223 participants). <strong>Score 95 · Horace Mann team earned Team Achievement Award.</strong></div></div>
-      <div class="ac"><div class="ac-ico">🧮</div><div class="ac-cat">Mathematics · School</div><div class="ac-t">RSM Redmond — Class 5_3G · A/A+ consistently</div><div class="ac-d"><strong>Class 5_3G — RSM's hardest track.</strong> 106/100 on first homework (bonus problems completed). Consistent A/A+ Fall 2025–Spring 2026. Ms. Kate: “Not every student is able to handle 5_3.”</div></div>
-      <div class="ac"><div class="ac-ico">🌊</div><div class="ac-cat">Swimming</div><div class="ac-t">Wave Aquatics — White B Excellence Award, AG1 level</div><div class="ac-d"><strong>Hand-selected by Coach Michael · AG1 level.</strong> "Consistently brings their best in all aspects of the sport." USA Swimming member since Grade 2.</div></div>
-      <div class="ac"><div class="ac-ico">🥋</div><div class="ac-cat">Martial Arts · Tournament</div><div class="ac-t">Oom Yung Doe — Bronze Medal, 2026 Spring Tournament</div><div class="ac-d"><strong>Bronze Medal · 2026 Spring Tournament · staff weapon form.</strong> Trains in the Grandmaster Iron Kim style (8 complete martial arts as one). Selected for MLT (Masters Level Training) — advanced Wednesday sessions on top of regular Monday classes.</div></div>
-      <div class="ac"><div class="ac-ico">🎤</div><div class="ac-cat">Performing Arts</div><div class="ac-t">Spardha — Rockschool Vocals Grade 3 (intermediate) · Open Mic performer</div><div class="ac-d"><strong>Debut to Grade 3 in one cycle.</strong> Rockschool: internationally accredited UK grading system. Performed at Spardha Open Mic — global virtual stage — September 2026.</div></div>
-      <div class="ac">
-        <div class="ac-ico">🎵</div>
-        <div class="ac-cat">Performing Arts · 3rd Grade</div>
-        <div class="ac-t">District Choral Performance — Representing Horace Mann</div>
-        <div class="ac-d"><strong>Selected to represent Horace Mann at the LWSD district choral performance.</strong> One of a small number of students chosen from the school to perform before a full district audience in 3rd grade.</div>
-      </div>
-      <div class="ac"><div class="ac-ico">🌍</div><div class="ac-cat">Geography · 1st Place · National Qualifier</div><div class="ac-t">Passport Club Geo Bee — 🏆 1st Place + National Qualifier</div><div class="ac-d"><strong>1st place · Level 3 · age 6.</strong> Beat 3rd, 4th, and 5th graders in a five-round buzzer competition. Result qualified him for the IAC National Geography Bee (Elementary &amp; Middle School National Championships, Orlando FL).</div></div>
-      <div class="ac"><div class="ac-ico">♟️</div><div class="ac-cat">Strategy</div><div class="ac-t">Chess — PTSA programs, grades 1–4</div><div class="ac-d">Weekly chess since Grade 2 (Clara Barton PTSA). Horace Mann Fall 2026 Chess Club + PTSA Math Club — strategic thinking alongside competition math.</div></div>
-    </div>
+  <section class="section" style="padding-top:0;">
+    <div id="achievement-root"></div>
   </section>
+
+  <!-- React + Framer Motion via CDN (achievements only) -->
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/framer-motion@11/dist/framer-motion.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel" data-presets="react">
+  (() => {
+    const { useState, useMemo } = React;
+    const { motion, AnimatePresence } = window.Motion;
+
+    /* ── TOKENS ── */
+    const COLORS = {
+      Math:          { accent:"#2dd4bf", bg:"rgba(45,212,191,0.07)",  border:"rgba(45,212,191,0.20)"  },
+      Swimming:      { accent:"#38bdf8", bg:"rgba(56,189,248,0.07)",  border:"rgba(56,189,248,0.20)"  },
+      "Martial Arts":{ accent:"#818cf8", bg:"rgba(129,140,248,0.07)", border:"rgba(129,140,248,0.20)" },
+      Music:         { accent:"#f472b6", bg:"rgba(244,114,182,0.07)", border:"rgba(244,114,182,0.20)" },
+      Geography:     { accent:"#34d399", bg:"rgba(52,211,153,0.07)",  border:"rgba(52,211,153,0.20)"  },
+      Strategy:      { accent:"#a78bfa", bg:"rgba(167,139,250,0.07)", border:"rgba(167,139,250,0.20)" },
+    };
+    const CATS = ["All", ...Object.keys(COLORS)];
+
+    const TIER = {
+      gold:    { color:"#fbbf24", bg:"rgba(251,191,36,0.10)",  border:"rgba(251,191,36,0.28)" },
+      silver:  { color:"#94a3b8", bg:"rgba(148,163,184,0.10)", border:"rgba(148,163,184,0.22)"},
+      bronze:  { color:"#fb923c", bg:"rgba(251,146,60,0.10)",  border:"rgba(251,146,60,0.28)" },
+      neutral: { color:"#4a6282", bg:"rgba(74,98,130,0.08)",   border:"rgba(74,98,130,0.18)"  },
+    };
+
+    /* ── DATA ── */
+    const DATA = [
+      {
+        id:"imc", cat:"Math", award:"Gold Medal", tier:"gold",
+        title:"International Math Contest (IMC)",
+        tag:"2026 · Grade 4",
+        desc:"Top performer across RSM's global network. Featured in RSM "Minds of the Future" showcase — the highest recognition RSM awards its students.",
+        kw:["rsm","imc","gold","international","minds of the future"],
+      },
+      {
+        id:"mk26", cat:"Math", award:"Top 20 Nationwide", tier:"gold",
+        title:"Math Kangaroo USA",
+        tag:"2026 · Grade 4",
+        desc:"Top 20 of 6M+ global participants at grade level. Exclusive invitation to workshop with Prof. Po-Shen Loh — top performers only.",
+        kw:["math kangaroo","top 20","national","po-shen loh"],
+      },
+      {
+        id:"mk25", cat:"Math", award:"#14 National · #10 State", tier:"gold",
+        title:"Math Kangaroo USA",
+        tag:"2025 · Grade 3",
+        desc:"Score 81 · top 78.8% nationally · State rank #10 in WA. RSM WA Competition Team invited him to the awards ceremony.",
+        kw:["math kangaroo","#14","national rank","state rank","washington"],
+      },
+      {
+        id:"mct", cat:"Math", award:"84th Percentile", tier:"silver",
+        title:"National Math Challenge Tournament",
+        tag:"2026 · Grade 4",
+        desc:"183/219 points · outscored 84% of national participants. Level 3, Division I — held at Clara Barton Elementary.",
+        kw:["mct","math challenge","84th","percentile","national"],
+      },
+      {
+        id:"noetic", cat:"Math", award:"Score 95 · Team Award", tier:"silver",
+        title:"Noetic Learning Math Contest",
+        tag:"Fall 2025 · Grade 3",
+        desc:"Score 95 · 1 of 33,223 national participants. Horace Mann team earned the Team Achievement Award.",
+        kw:["noetic","95","team achievement","33223"],
+      },
+      {
+        id:"rsm", cat:"Math", award:"Class 5_3G", tier:"neutral",
+        title:"RSM Redmond — Hardest Track",
+        tag:"2025–2026 · Ongoing",
+        desc:"106/100 on first homework (bonus problems completed). Consistent A/A+ Fall 2025–Spring 2026. Ms. Kate: "Not every student is able to handle 5_3."",
+        kw:["rsm","5_3g","russian school","redmond","ms kate"],
+      },
+      {
+        id:"wave", cat:"Swimming", award:"White B Excellence Award", tier:"gold",
+        title:"Wave Aquatics Seasonal Banquet",
+        tag:"2026 · AG1 Level",
+        desc:"Hand-selected by Coach Michael from the full AG1 roster. "Consistently brings their best in all aspects of the sport."",
+        kw:["wave aquatics","excellence","white b","coach michael","ag1"],
+      },
+      {
+        id:"swim-usa", cat:"Swimming", award:"Registered Competitor", tier:"neutral",
+        title:"USA Swimming",
+        tag:"Since Grade 2",
+        desc:"USA Swimming registered member since Grade 2. Competed at Missoula MT swim meet — part of the June 2026 Yellowstone road trip.",
+        kw:["usa swimming","missoula","meet","competitive"],
+      },
+      {
+        id:"oyd", cat:"Martial Arts", award:"Local Bronze Medal", tier:"bronze",
+        title:"Oom Yung Doe Spring Tournament",
+        tag:"Spring 2026",
+        desc:"Staff weapon form · open tournament field. Grandmaster Iron Kim style — 8 complete martial arts as one. MLT training Wednesdays.",
+        kw:["oom yung doe","bronze","spring tournament","staff weapon","iron kim"],
+      },
+      {
+        id:"oyd-mlt", cat:"Martial Arts", award:"MLT Training", tier:"neutral",
+        title:"Masters Level Training — Oom Yung Doe",
+        tag:"Ongoing · Kirkland",
+        desc:"Selected for MLT (Masters Level Training) — advanced Wednesday sessions on top of regular Monday classes. Trains alongside sister Ila.",
+        kw:["mlt","masters level","oom yung doe","kirkland"],
+      },
+      {
+        id:"spardha", cat:"Music", award:"Rockschool Grade 3", tier:"gold",
+        title:"Spardha School of Music — Western Vocals",
+        tag:"Dec 2025",
+        desc:"Debut to Grade 3 (intermediate) in one cycle. Rockschool: internationally accredited UK grading system for contemporary music.",
+        kw:["spardha","rockschool","vocals","grade 3","intermediate"],
+      },
+      {
+        id:"openmic", cat:"Music", award:"Global Stage", tier:"silver",
+        title:"Spardha Open Mic — International",
+        tag:"Sep 2026",
+        desc:"Performed on Spardha's global virtual Open Mic stage — an international showcase for young music students worldwide.",
+        kw:["open mic","spardha","global","virtual","performance"],
+      },
+      {
+        id:"choir", cat:"Music", award:"District Selection", tier:"silver",
+        title:"LWSD District Choral Performance",
+        tag:"2024 · Grade 3",
+        desc:"Selected to represent Horace Mann Elementary at a Lake Washington School District concert — one of a small number of students chosen school-wide.",
+        kw:["choir","district","lwsd","choral","horace mann"],
+      },
+      {
+        id:"geobee", cat:"Geography", award:"1st Place · National Qualifier", tier:"gold",
+        title:"Passport Club Geography Bee",
+        tag:"Jun 2023 · Grade 1",
+        desc:"Beat 3rd, 4th, and 5th graders in Level 3 as a 1st grader. Result qualified him for the IAC National Geography Bee (Orlando FL).",
+        kw:["geo bee","geography","1st place","national qualifier","iac","passport club"],
+      },
+      {
+        id:"chess", cat:"Strategy", award:"Weekly Competitor", tier:"neutral",
+        title:"Chess — PTSA & Enrichment Clubs",
+        tag:"Grade 2–4 · Ongoing",
+        desc:"Weekly chess since Grade 2 (Clara Barton PTSA). Horace Mann Fall 2026 Chess Club + PTSA Math Club — strategic thinking alongside competition math.",
+        kw:["chess","ptsa","strategy","enrichment","horace mann"],
+      },
+    ];
+
+    /* ── HIGHLIGHT ── */
+    function Hl({ text, q }) {
+      if (!q.trim()) return React.createElement("span", null, text);
+      const re = new RegExp("(" + q.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + ")", "gi");
+      const parts = text.split(re);
+      return React.createElement(React.Fragment, null,
+        parts.map((p, i) =>
+          re.test(p)
+            ? React.createElement("mark", {
+                key: i,
+                style:{ background:"rgba(45,212,191,0.25)", color:"inherit", borderRadius:3, padding:"0 2px" }
+              }, p)
+            : React.createElement("span", { key: i }, p)
+        )
+      );
+    }
+
+    /* ── CARD ── */
+    function Card({ item, q }) {
+      const cat = COLORS[item.cat] || COLORS.Math;
+      const tier = TIER[item.tier];
+      return React.createElement(motion.div, {
+        layout: true,
+        initial:{ opacity:0, y:16 },
+        animate:{ opacity:1, y:0 },
+        exit:{ opacity:0, y:-10, scale:0.97 },
+        transition:{ duration:0.25, ease:[0.25,0.46,0.45,0.94] },
+        style:{
+          background:"linear-gradient(145deg,#0c1829 0%,#070e1a 100%)",
+          border:`1px solid #1a2d42`,
+          borderLeft:`3px solid ${cat.accent}`,
+          borderRadius:16,
+          padding:"20px 20px 36px",
+          display:"flex", flexDirection:"column", gap:10,
+          position:"relative", overflow:"hidden",
+          breakInside:"avoid",
+        }
+      },
+        /* top glow */
+        React.createElement("div", { style:{
+          position:"absolute", top:0, left:0, right:0, height:56,
+          background:`linear-gradient(180deg,${cat.accent}0a 0%,transparent 100%)`,
+          pointerEvents:"none",
+        }}),
+        /* award pill */
+        React.createElement("div", { style:{
+          display:"inline-flex", alignItems:"center", gap:5,
+          fontSize:11, fontWeight:600, padding:"3px 10px", borderRadius:40,
+          color:tier.color, background:tier.bg, border:`1px solid ${tier.border}`,
+          alignSelf:"flex-start", position:"relative",
+        }},
+          item.tier === "gold"   && React.createElement("span",{style:{fontSize:9}},"★"),
+          item.tier === "bronze" && React.createElement("span",{style:{fontSize:9}},"◆"),
+          React.createElement(Hl,{ text:item.award, q })
+        ),
+        /* title */
+        React.createElement("div",{
+          style:{ fontSize:15, fontWeight:700, color:"#e2e8f0", lineHeight:1.25, position:"relative" }
+        }, React.createElement(Hl,{ text:item.title, q })),
+        /* tag */
+        React.createElement("div",{
+          style:{ fontSize:11, fontWeight:500, color:cat.accent, opacity:0.8 }
+        }, item.tag),
+        /* description */
+        React.createElement("div",{
+          style:{ fontSize:13, color:"#475569", lineHeight:1.65, position:"relative" }
+        }, React.createElement(Hl,{ text:item.desc, q })),
+        /* category chip */
+        React.createElement("div",{
+          style:{
+            position:"absolute", bottom:12, right:14,
+            fontSize:10, fontWeight:600, padding:"2px 8px", borderRadius:40,
+            color:cat.accent, background:cat.bg, border:`1px solid ${cat.border}`,
+            opacity:0.65,
+          }
+        }, item.cat)
+      );
+    }
+
+    /* ── PILL ── */
+    function Pill({ label, active, count, onClick }) {
+      const accent = COLORS[label]?.accent ?? "#2dd4bf";
+      return React.createElement("button",{
+        onClick,
+        style:{
+          display:"inline-flex", alignItems:"center", gap:6,
+          fontSize:13, fontWeight: active ? 600 : 500,
+          padding:"7px 15px", borderRadius:40, cursor:"pointer",
+          border: active ? `1px solid ${accent}` : "1px solid #1a2d42",
+          background: active ? `${accent}10` : "transparent",
+          color: active ? accent : "#475569",
+          transition:"all 0.16s ease",
+          whiteSpace:"nowrap", outline:"none",
+          fontFamily:"inherit",
+        }
+      },
+        label,
+        React.createElement("span",{
+          style:{
+            fontSize:10, fontWeight:700, padding:"1px 6px", borderRadius:20,
+            background: active ? `${accent}1a` : "#1a2d42",
+            color: active ? accent : "#334155",
+            minWidth:20, textAlign:"center",
+          }
+        }, count)
+      );
+    }
+
+    /* ── MAIN ── */
+    function AchievementGrid() {
+      const [cat, setCat] = useState("All");
+      const [q, setQ] = useState("");
+
+      const counts = useMemo(() => {
+        const c = {};
+        DATA.forEach(a => { c[a.cat] = (c[a.cat]||0)+1; });
+        return c;
+      }, []);
+
+      const filtered = useMemo(() => {
+        const sq = q.trim().toLowerCase();
+        return DATA.filter(a => {
+          if (cat !== "All" && a.cat !== cat) return false;
+          if (!sq) return true;
+          return (
+            a.title.toLowerCase().includes(sq) ||
+            a.award.toLowerCase().includes(sq) ||
+            a.desc.toLowerCase().includes(sq) ||
+            a.tag.toLowerCase().includes(sq) ||
+            a.kw.some(k => k.toLowerCase().includes(sq))
+          );
+        });
+      }, [cat, q]);
+
+      return React.createElement("div", {
+        style:{ fontFamily:"'Inter',system-ui,sans-serif" }
+      },
+        /* section header */
+        React.createElement("div",{ style:{ marginBottom:28 }},
+          React.createElement("div",{ className:"s-eye" },"Competitions & recognition"),
+          React.createElement("h2",{ className:"s-title" },"Achievements across every arena")
+        ),
+
+        /* controls */
+        React.createElement("div",{
+          style:{ display:"flex", alignItems:"center", gap:8, marginBottom:24, flexWrap:"wrap" }
+        },
+          /* pills */
+          React.createElement("div",{
+            style:{ display:"flex", gap:6, flexWrap:"wrap", flex:1 }
+          },
+            CATS.map(c =>
+              React.createElement(Pill,{
+                key:c, label:c, active:cat===c,
+                count: c==="All" ? DATA.length : (counts[c]||0),
+                onClick:()=>{ setCat(c); setQ(""); }
+              })
+            )
+          ),
+          /* search */
+          React.createElement("div",{ style:{ position:"relative", flexShrink:0 }},
+            React.createElement("svg",{
+              viewBox:"0 0 24 24", width:14, height:14,
+              fill:"none", stroke:"#334155", strokeWidth:2,
+              strokeLinecap:"round", strokeLinejoin:"round",
+              style:{ position:"absolute", left:12, top:"50%", transform:"translateY(-50%)", pointerEvents:"none" }
+            },
+              React.createElement("circle",{ cx:11, cy:11, r:8 }),
+              React.createElement("line",{ x1:21, y1:21, x2:16.65, y2:16.65 })
+            ),
+            React.createElement("input",{
+              type:"text", placeholder:"Search…",
+              value:q,
+              onChange:e=>setQ(e.target.value),
+              style:{
+                background:"#0c1829", border:"1px solid #1a2d42",
+                borderRadius:40, padding:"7px 32px 7px 32px",
+                fontSize:13, color:"#94a3b8", outline:"none",
+                width:180, transition:"border-color 0.16s", fontFamily:"inherit",
+              },
+              onFocus:e=>e.target.style.borderColor="#2dd4bf55",
+              onBlur:e=>e.target.style.borderColor="#1a2d42",
+            }),
+            q && React.createElement("button",{
+              onClick:()=>setQ(""),
+              style:{
+                position:"absolute", right:10, top:"50%", transform:"translateY(-50%)",
+                background:"none", border:"none", cursor:"pointer",
+                color:"#475569", fontSize:13, lineHeight:1, padding:2,
+              }
+            },"✕")
+          )
+        ),
+
+        /* result count */
+        q && React.createElement(AnimatePresence, null,
+          React.createElement(motion.p,{
+            key:"count",
+            initial:{ opacity:0, height:0 },
+            animate:{ opacity:1, height:"auto" },
+            exit:{ opacity:0, height:0 },
+            style:{ fontSize:12, color:"#2dd4bf", marginBottom:16, overflow:"hidden" }
+          }, `${filtered.length} result${filtered.length!==1?"s":""} for "${q}"`)
+        ),
+
+        /* grid */
+        React.createElement(motion.div,{
+          layout:true,
+          style:{
+            display:"grid",
+            gridTemplateColumns:"repeat(auto-fill,minmax(290px,1fr))",
+            gap:14,
+          }
+        },
+          React.createElement(AnimatePresence,{ mode:"popLayout" },
+            filtered.length === 0
+              ? React.createElement(motion.div,{
+                  key:"empty",
+                  initial:{ opacity:0 }, animate:{ opacity:1 }, exit:{ opacity:0 },
+                  style:{ gridColumn:"1/-1", textAlign:"center", padding:"52px 20px", color:"#334155" }
+                },
+                  React.createElement("div",{ style:{ fontSize:28, marginBottom:12 }},"⊘"),
+                  React.createElement("p",{ style:{ fontSize:15, fontWeight:600, color:"#475569", marginBottom:6 }},
+                    q ? `No results for "${q}"` : `No ${cat} achievements on record yet`
+                  ),
+                  React.createElement("p",{ style:{ fontSize:13 }},
+                    q ? "Try a subject, year, or competition name." : "Check back as new results come in."
+                  )
+                )
+              : filtered.map(item =>
+                  React.createElement(Card,{ key:item.id, item, q })
+                )
+          )
+        ),
+
+        /* footer */
+        filtered.length > 0 && React.createElement("p",{
+          style:{ fontSize:11, color:"#1e2d3d", textAlign:"center", marginTop:28 }
+        }, `${filtered.length} of ${DATA.length} achievements${cat!=="All"?" in "+cat:""}`)
+      );
+    }
+
+    /* ── MOUNT ── */
+    const root = ReactDOM.createRoot(document.getElementById("achievement-root"));
+    root.render(React.createElement(AchievementGrid));
+  })();
+  </script>
 
   <!-- STEM PROJECTS -->
   <section class="section">
